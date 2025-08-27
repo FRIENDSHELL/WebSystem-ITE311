@@ -19,7 +19,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-pink">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">NavBar</a>
+            <a class="navbar-brand" href="#">LMS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,13 +27,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav"> 
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="<?= base_url('index')?>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="<?= base_url('about')?>">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="<?=base_url('contact')?>">Contact</a>
                     </li>
                 </ul>
             </div>
