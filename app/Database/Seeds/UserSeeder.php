@@ -8,53 +8,45 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        $data = [
-            // Admin
+        $users = [
             [
-                'name' => 'Admin User',
-                'email' => 'admin@example.com',
-                'password' => password_hash('admin123', PASSWORD_DEFAULT),
-                'role' => 'admin',
+                'name'       => 'Admin User',
+                'email'      => 'admin@test.com',
+                'password'   => password_hash('1234', PASSWORD_DEFAULT),
+                'role'       => 'admin',
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            // Instructors
-            [
-                'name' => 'John Instructor',
-                'email' => 'john.instructor@example.com',
-                'password' => password_hash('password123', PASSWORD_DEFAULT),
-                'role' => 'teacher',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'name' => 'Mary Instructor',
-                'email' => 'mary.instructor@example.com',
-                'password' => password_hash('password123', PASSWORD_DEFAULT),
-                'role' => 'teacher',
+                'name'       => 'Instructor One',
+                'email'      => 'instructor@test.com',
+                'password'   => password_hash('1234', PASSWORD_DEFAULT),
+                'role'       => 'instructor',
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            // Students
-            [
-                'name' => 'Student One',
-                'email' => 'student1@example.com',
-                'password' => password_hash('password123', PASSWORD_DEFAULT),
-                'role' => 'student',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'name' => 'Student Two',
-                'email' => 'student2@example.com',
-                'password' => password_hash('password123', PASSWORD_DEFAULT),
-                'role' => 'student',
+                'name'       => 'Student One',
+                'email'      => 'student@test.com',
+                'password'   => password_hash('1234', PASSWORD_DEFAULT),
+                'role'       => 'student',
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
             ],
         ];
 
-        // Insert all users
-        $this->db->table('users')->insertBatch($data);
+        $builder = $this->db->table('users');
+
+        foreach ($users as $user) {
+            // Check if email exists
+            $existing = $builder->where('email', $user['email'])->get()->getRowArray();
+
+            if ($existing) {
+                // Prevent overwriting created_at
+                unset($user['created_at']);
+                $builder->where('email', $existing['email'])->update($user);
+            } else {
+                $builder->insert($user);
+            }
+        }
+
+        echo "✅ User seeding completed with roles: admin, instructor, student.";
     }
 }

@@ -4,22 +4,30 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function template()
-    {
-        return view('template'); // Loads contact.php from Views
-    }
     public function index()
     {
-        return view('index'); // Loads index.php from Views
+        return view('index', [
+            'isLoggedIn' => session()->get('isLoggedIn'),
+            'name'       => session()->get('name'),
+            'role'       => session()->get('role')
+        ]);
     }
 
     public function about()
     {
-        return view('about'); // Loads about.php from Views
+        return view('about', [
+            'isLoggedIn' => session()->get('isLoggedIn'),
+            'name'       => session()->get('name'),
+            'role'       => session()->get('role')
+        ]);
     }
 
     public function contact()
     {
-        return view('contact'); // Loads contact.php from Views
+        return view('contact', [
+            'isLoggedIn' => session()->get('isLoggedIn'),
+            'name'       => session()->get('name'),
+            'role'       => session()->get('role')
+        ]);
     }
 }
