@@ -119,3 +119,5 @@ class Auth extends BaseController
         return view('auth/dashboard', $data);
     }
 }
+
+//practice commit

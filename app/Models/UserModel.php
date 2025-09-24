@@ -39,3 +39,5 @@ class UserModel extends Model
             'my_courses'         => 0,
             'my_notifications'   => 0,
         ];
+    }
+}
