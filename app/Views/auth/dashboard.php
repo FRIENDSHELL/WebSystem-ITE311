@@ -7,6 +7,7 @@
             <h2 class="mb-3" style="font-weight: 600; color: #440615ff;">Welcome, <span><?= esc($user_name) ?></span> 👋</h2>
             <p class="text-dark mb-4">You are logged in as <strong><?= esc($user_role) ?></strong>.</p>
 
+
             <div class="d-flex justify-content-center gap-3">
                 <a href="<?= site_url('/') ?>" class="btn btn-outline-light px-4 py-2 rounded-pill shadow-sm" 
                    style="background-color: #e8bac1ff; color: #fff; border: none; transition: all 0.3s;">Home</a>

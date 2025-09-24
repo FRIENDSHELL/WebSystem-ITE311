@@ -34,6 +34,7 @@
                     </div>
 
                     <div class="mb-3">
+<<<<<<< HEAD
                         <label>Confirm Password</label>
                         <input type="password" name="confirm_password" class="form-control" required>
                     </div>
@@ -57,4 +58,8 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <?= $this->endSection() ?>
+=======
+<?= $this->endSection() ?>
+>>>>>>> origin/master
