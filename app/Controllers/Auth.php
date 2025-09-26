@@ -10,9 +10,9 @@ class Auth extends BaseController
 
     public function login()
     {
-        // if already logged in → go dashboard
+        // If already logged in → go role-based dashboard
         if (session()->get('logged_in')) {
-            return redirect()->to('dashboard');
+            return redirect()->to("dashboard");
         }
 
         if ($this->request->getMethod() === 'POST') {
@@ -21,18 +21,20 @@ class Auth extends BaseController
                 'password' => 'required|min_length[4]'
             ])) {
                 return redirect()->back()
-                                 ->withInput()
-                                 ->with('errors', $this->validator->getErrors());
+                    ->withInput()
+                    ->with('errors', $this->validator->getErrors());
             }
 
             $userModel = new UserModel();
             $user = $userModel->findUserByEmail($this->request->getPost('email'));
 
             if (!$user || !password_verify($this->request->getPost('password'), $user['password'])) {
-                return redirect()->back()->withInput()->with('error', 'Invalid email or password.');
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Invalid email or password.');
             }
 
-            // start session
+            // Start session
             session()->set([
                 'id'        => $user['id'],
                 'name'      => $user['name'],
@@ -41,7 +43,7 @@ class Auth extends BaseController
                 'logged_in' => true,
             ]);
 
-            return redirect()->to('/dashboard');
+            return redirect()->to("dashboard");
         }
 
         return view('auth/login');
@@ -49,9 +51,9 @@ class Auth extends BaseController
 
     public function register()
     {
-        // if already logged in → go dashboard
+        // If already logged in → go role-based dashboard
         if (session()->get('logged_in')) {
-            return redirect()->to('dashboard');
+            return redirect()->to("dashboard");
         }
 
         if ($this->request->getMethod() === 'POST') {
@@ -60,25 +62,25 @@ class Auth extends BaseController
                 'email'            => 'required|valid_email|is_unique[users.email]',
                 'password'         => 'required|min_length[4]',
                 'confirm_password' => 'matches[password]',
-                'role'             => 'required|in_list[student,instructor,admin]'
+                // 'role'             => 'required|in_list[student,instructor,admin]'
             ])) {
                 return redirect()->back()
-                                 ->withInput()
-                                 ->with('errors', $this->validator->getErrors());
+                    ->withInput()
+                    ->with('errors', $this->validator->getErrors());
             }
 
             $userModel = new UserModel();
             $userData = [
                 'name'     => $this->request->getPost('name'),
                 'email'    => $this->request->getPost('email'),
-                'password' => $this->request->getPost('password'),
-                'role'     => $this->request->getPost('role'),
+                'password' => $this->request->getPost('password'), // hashed sa model
+                'role'     => 'student',
             ];
 
             $userId = $userModel->createAccount($userData);
 
             if ($userId) {
-                // ✅ Auto login after registration
+                // Optional: Auto-login after register
                 session()->set([
                     'id'        => $userId,
                     'name'      => $userData['name'],
@@ -87,8 +89,10 @@ class Auth extends BaseController
                     'logged_in' => true,
                 ]);
 
-                return view("auth/login");
+                return redirect()->to("dashboard");
             }
+
+            return redirect()->back()->with('error', 'Failed to register. Please try again.');
         }
 
         return view('auth/register');
@@ -97,27 +101,25 @@ class Auth extends BaseController
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/login')->with('success', 'You have been logged out.');
+        return redirect()->to('/login')->with('message', 'You have been logged out.');
     }
 
+    /**
+     * 🔹 Helper function: redirect user by role
+     */
     public function dashboard()
     {
-        if (!session()->get('logged_in')) {
-            return redirect()->to('/login')->with('error', 'Please login first.');
+        if(!session()->get('logged_in')) {
+            return redirect()->to('/login');
         }
 
-        $userModel = new UserModel();
-        $stats = $userModel->getDashboardStats(session()->get('role'), session()->get('id'));
+        $session = session();
+
         $data = [
-            'user_name'  => session()->get('name'),
-            'user_role'  => session()->get('role'),
-            'total_users' => $stats['total_users'] ?? 0,
+            'name' => $session->get('name'),
+            'role' => $session->get('role')
         ];
 
-        
-
-        return view('auth/dashboard', $data);
+        return  view('template/header.php', $data) . view('auth/dashboard', $data);
     }
 }
-
-//practice commit

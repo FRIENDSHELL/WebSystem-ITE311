@@ -15,8 +15,10 @@ class UserModel extends Model
 
     public function createAccount(array $data)
     {
-        // Hash password before saving
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        // Hash password before saving (centralized dito na lang)
+        if (isset($data['password'])) {
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
 
         $this->insert($data);
 
@@ -31,13 +33,31 @@ class UserModel extends Model
 
     public function getDashboardStats($role, $userId)
     {
-        // You can implement role-based stats later
-        return [
-            'total_users'        => 0,
-            'total_projects'     => 0,
-            'total_notifications'=> 0,
-            'my_courses'         => 0,
-            'my_notifications'   => 0,
-        ];
+        // 🔹 Placeholder lang muna, depende sa role pwede mo dagdagan
+        if ($role === 'admin') {
+            return [
+                'total_users'        => $this->countAll(),
+                'total_projects'     => 5,
+                'total_notifications'=> 3,
+                'my_courses'         => 0,
+                'my_notifications'   => 0,
+            ];
+        } elseif ($role === 'teachers') {
+            return [
+                'total_users'        => 0,
+                'total_projects'     => 2,
+                'total_notifications'=> 1,
+                'my_courses'         => 3,
+                'my_notifications'   => 2,
+            ];
+        } else { // student
+            return [
+                'total_users'        => 0,
+                'total_projects'     => 0,
+                'total_notifications'=> 0,
+                'my_courses'         => 2,
+                'my_notifications'   => 1,
+            ];
+        }
     }
 }

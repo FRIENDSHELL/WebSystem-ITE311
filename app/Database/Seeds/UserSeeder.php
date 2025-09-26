@@ -17,10 +17,10 @@ class UserSeeder extends Seeder
                 'created_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'name'       => 'Instructor One',
-                'email'      => 'instructor@test.com',
+                'name'       => 'Teacher One',
+                'email'      => 'teacher@test.com',
                 'password'   => password_hash('1234', PASSWORD_DEFAULT),
-                'role'       => 'instructor',
+                'role'       => 'teacher',
                 'created_at' => date('Y-m-d H:i:s'),
             ],
             [
@@ -47,6 +47,6 @@ class UserSeeder extends Seeder
             }
         }
 
-        echo "✅ User seeding completed with roles: admin, instructor, student.";
+        echo "✅ User seeding completed with roles: admin, teacher, student.";
     }
 }

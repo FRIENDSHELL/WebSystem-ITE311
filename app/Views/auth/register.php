@@ -34,19 +34,12 @@
                     </div>
 
                     <div class="mb-3">
-<<<<<<< HEAD
+
                         <label>Confirm Password</label>
                         <input type="password" name="confirm_password" class="form-control" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label>Role</label>
-                        <select name="role" class="form-control" required>
-                            <option value="student" <?= old('role') === 'student' ? 'selected' : '' ?>>Student</option>
-                            <option value="instructor" <?= old('role') === 'instructor' ? 'selected' : '' ?>>Instructor</option>
-                            <option value="admin" <?= old('role') === 'admin' ? 'selected' : '' ?>>Admin</option>
-                        </select>
-                    </div>
+                    
 
                     <button type="submit" class="btn btn-success w-100">Register</button>
                 </form>
@@ -58,8 +51,4 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
 <?= $this->endSection() ?>
-=======
-<?= $this->endSection() ?>
->>>>>>> origin/master

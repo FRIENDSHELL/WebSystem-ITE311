@@ -2,21 +2,34 @@
 
 namespace App\Controllers;
 
+use App\Controllers\BaseController;
+
 class Dashboard extends BaseController
 {
-    public function index()
+    public function admin()
     {
-        // Ensure user is logged in
-        if (!session()->get('isLoggedIn')) {
-            return redirect()->to('/login');
-        }
-
         $data = [
-            'name' => session()->get('name'),
-            'role' => session()->get('role')
+            'title' => 'Admin Dashboard',
+            'name'  => session()->get('name'),
         ];
+        return view('dashboard/admin', $data);
+    }
 
-        // ✅ same dashboard view for all roles
-        return view('auth/dashboard', $data);
+    public function instructor()
+    {
+        $data = [
+            'title' => 'Instructor Dashboard',
+            'name'  => session()->get('name'),
+        ];
+        return view('dashboard/instructor', $data);
+    }
+
+    public function student()
+    {
+        $data = [
+            'title' => 'Student Dashboard',
+            'name'  => session()->get('name'),
+        ];
+        return view('dashboard/student', $data);
     }
 }
