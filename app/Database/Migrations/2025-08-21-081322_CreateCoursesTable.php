@@ -17,13 +17,13 @@ class CreateCoursesTable extends Migration
             ],
             'title' => [
                 'type' => 'VARCHAR',
-                'constraint' => '150',
+                'constraint' => '255',
             ],
             'description' => [
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'teacher_id' => [
+            'user_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
@@ -37,8 +37,9 @@ class CreateCoursesTable extends Migration
                 'null' => true,
             ],
         ]);
+
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('teacher_id', 'users', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('courses');
     }
 

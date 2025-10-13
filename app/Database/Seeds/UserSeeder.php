@@ -9,14 +9,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         $users = [
+            
             [
-                'name'       => 'Admin User',
-                'email'      => 'admin@test.com',
-                'password'   => password_hash('1234', PASSWORD_DEFAULT),
-                'role'       => 'admin',
-                'created_at' => date('Y-m-d H:i:s'),
-            ],
-            [
+                 'id'    => 2,
                 'name'       => 'Teacher One',
                 'email'      => 'teacher@test.com',
                 'password'   => password_hash('1234', PASSWORD_DEFAULT),
@@ -24,6 +19,7 @@ class UserSeeder extends Seeder
                 'created_at' => date('Y-m-d H:i:s'),
             ],
             [
+                'id'    => 3,
                 'name'       => 'Student One',
                 'email'      => 'student@test.com',
                 'password'   => password_hash('1234', PASSWORD_DEFAULT),
