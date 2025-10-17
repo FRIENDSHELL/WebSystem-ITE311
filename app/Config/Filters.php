@@ -12,7 +12,8 @@ class Filters extends BaseConfig
         'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'auth'     => \App\Filters\AuthFilter::class,
         'noauth'   => \App\Filters\NoAuthFilter::class,
-         'role' => \App\Filters\RoleFilter::class,
+        'role'     => \App\Filters\RoleFilter::class,
+        'roleauth' => \App\Filters\RoleAuth::class,
     ];
 
     public array $globals = [

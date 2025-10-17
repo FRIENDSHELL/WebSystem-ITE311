@@ -4,34 +4,42 @@ use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
 
-// 🔹 Public pages
-$routes->get('/', 'Home::index');
-$routes->get('about', 'Home::about');
-$routes->get('contact', 'Home::contact');
+// 🔹 Default route
+$routes->get('/', 'Auth::login');
 
-// 🔹 Auth routes
+// 🔹 Public / Auth routes
 $routes->get('login', 'Auth::login');
 $routes->post('login', 'Auth::login');
 $routes->get('register', 'Auth::register');
 $routes->post('register', 'Auth::register');
 $routes->get('logout', 'Auth::logout');
-$routes->match(['get', 'post'], 'auth/login', 'Auth::login');
-$routes->match(['get', 'post'], 'auth/register', 'Auth::register');
-$routes->get('auth/logout', 'Auth::logout');
 
+// 🔹 Announcements (visible to all logged-in users)
+$routes->get('announcements', 'Announcement::index');
 
-$routes->get('dashboard', 'Auth::dashboard'); 
-// $routes->get('instructor/dashboard', 'Dashboard::instructor');
-// $routes->get('student/dashboard', 'Dashboard::student');
+// 🔹 Role-based dashboards
+$routes->get('dashboard', 'Auth::dashboard'); // optional: fallback dashboard
 
-$routes->post('/course/enroll', 'Course::enroll'); 
+// 🔹 Teacher routes (protected by RoleAuth filter)
+$routes->group('teacher', ['filter' => 'roleauth'], function($routes) {
+    $routes->get('dashboard', 'Teacher::dashboard');
+    // Add more teacher-only routes here if needed
+});
 
+// 🔹 Admin routes (protected by RoleAuth filter)
+$routes->group('admin', ['filter' => 'roleauth'], function($routes) {
+    $routes->get('dashboard', 'Admin::dashboard');
+    // Add more admin-only routes here if needed
+});
 
-$routes->get('/', 'Auth::login');
-$routes->get('/login', 'Auth::login');
-$routes->post('/login', 'Auth::login');
-$routes->get('/register', 'Auth::register');
-$routes->post('/register', 'Auth::register');
-$routes->get('/logout', 'Auth::logout');
-$routes->match(['get', 'post'], '/dashboard', 'Auth::dashboard');
+// 🔹 Example student routes (optional, can add more later)
+$routes->group('student', ['filter' => 'roleauth'], function($routes) {
+    // Example: $routes->get('profile', 'Student::profile');
+});
 
+// 🔹 Course enroll route (if used in your project)
+$routes->post('course/enroll', 'Course::enroll');
+
+// 🔹 Extra static pages (optional)
+$routes->get('about', 'Home::about');
+$routes->get('contact', 'Home::contact');
