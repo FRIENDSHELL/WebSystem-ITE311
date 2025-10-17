@@ -211,6 +211,10 @@ class Auth extends BaseController
                 ->getResultArray();
         }
 
+        // ✅ Fetch announcements for all users
+        $announcementModel = new \App\Models\AnnouncementModel();
+        $announcements = $announcementModel->orderBy('created_at', 'DESC')->findAll();
+
         // ✅ Send data to view
         $data = [
             'user_name'       => $user_name,
@@ -218,6 +222,7 @@ class Auth extends BaseController
             'courses'         => $courses,
             'enrolledCourses' => $enrolledCourses,
             'users'           => $users,
+            'announcements'   => $announcements,
         ];
 
         return view('auth/dashboard', $data);

@@ -43,3 +43,6 @@ $routes->post('course/enroll', 'Course::enroll');
 // 🔹 Extra static pages (optional)
 $routes->get('about', 'Home::about');
 $routes->get('contact', 'Home::contact');
+
+// 🔹 Test route for debugging
+$routes->get('test/announcements', 'Test::announcements');

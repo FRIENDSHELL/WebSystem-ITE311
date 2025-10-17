@@ -10,8 +10,10 @@ class Announcement extends BaseController
         $model = new AnnouncementModel();
         $announcements = $model->orderBy('created_at', 'DESC')->findAll();
 
-        echo view('templates/header'); // if you use template header/footer
-        echo view('announcements', ['announcements' => $announcements]);
-        echo view('templates/footer');
+        $data = [
+            'announcements' => $announcements,
+        ];
+
+        return view('announcements', $data);
     }
 }

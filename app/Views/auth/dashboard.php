@@ -144,6 +144,46 @@
 
         <div id="alertBox" class="alert mt-3 d-none"></div>
     <?php endif; ?>
+
+    <!-- ==================== ANNOUNCEMENTS SECTION ==================== -->
+    <div class="card mt-4">
+        <div class="card-header fw-bold bg-info text-white">
+            <i class="fas fa-bullhorn me-2"></i>Latest Announcements
+        </div>
+        <div class="card-body">
+            <?php if (empty($announcements)): ?>
+                <div class="alert alert-info">
+                    <h5>No announcements available</h5>
+                    <p class="mb-0">Check back later for updates.</p>
+                </div>
+            <?php else: ?>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>Date Posted</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($announcements as $announcement): ?>
+                                <tr>
+                                    <td><strong><?= esc($announcement['title']) ?></strong></td>
+                                    <td><?= nl2br(esc($announcement['content'])) ?></td>
+                                    <td>
+                                        <small class="text-muted">
+                                            <?= $announcement['created_at'] ? date('M j, Y, g:i A', strtotime($announcement['created_at'])) : '—' ?>
+                                        </small>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
 
 <!-- ✅ jQuery -->
