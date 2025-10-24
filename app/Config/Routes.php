@@ -26,20 +26,20 @@ $routes->group('teacher', ['filter' => 'roleauth'], function($routes) {
     // Add more teacher-only routes here if needed
 });
 
-<<<<<<< HEAD
+
 // 🔹 Materials routes
 $routes->get('/admin/course/(:num)/upload', 'Materials::upload/$1');
 $routes->post('/admin/course/(:num)/upload', 'Materials::upload/$1');
 $routes->get('/materials/view/(:num)', 'Materials::view/$1');
 $routes->get('/materials/delete/(:num)', 'Materials::delete/$1');
 $routes->get('/materials/download/(:num)', 'Materials::download/$1');
-=======
+
 // 🔹 Admin routes (protected by RoleAuth filter)
 $routes->group('admin', ['filter' => 'roleauth'], function($routes) {
     $routes->get('dashboard', 'Admin::dashboard');
     // Add more admin-only routes here if needed
 });
->>>>>>> e62baee93552f5ca36ff0bb38eef6bbc6dd0dd28
+
 
 // 🔹 Example student routes (optional, can add more later)
 $routes->group('student', ['filter' => 'roleauth'], function($routes) {
