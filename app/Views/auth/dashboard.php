@@ -66,6 +66,57 @@
             </div>
         </div>
 
+        <div class="card mt-4">
+            <div class="card-header fw-bold bg-secondary text-white">Courses & Enrollments</div>
+            <div class="card-body">
+                <?php if (!empty($courses)): ?>
+                    <table class="table table-bordered table-striped align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Course Title</th>
+                                <th>Students Enrolled</th>
+                                <th>Student Names</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $db = \Config\Database::connect();
+                            foreach ($courses as $index => $c): 
+                                $courseId = $c['id'];
+                                $students = $db->table('enrollments')
+                                    ->select('users.name')
+                                    ->join('users', 'users.id = enrollments.user_id')
+                                    ->where('enrollments.course_id', $courseId)
+                                    ->get()->getResultArray();
+                                $studentNames = array_map(function($s){ return $s['name']; }, $students);
+                            ?>
+                                <tr>
+                                    <td><?= $index + 1 ?></td>
+                                    <td><?= esc($c['title'] ?? 'Unnamed Course') ?></td>
+                                    <td><?= count($students) ?></td>
+                                    <td><?= esc(implode(', ', $studentNames)) ?: '<span class="text-muted">None</span>' ?></td>
+                                    <td>
+                                        <a href="<?= base_url('materials/view/' . $courseId) ?>" 
+                                           class="btn btn-sm btn-info me-1">
+                                            <i class="bi bi-folder2-open"></i> View Materials
+                                        </a>
+                                        <a href="<?= base_url('admin/course/' . $courseId . '/upload') ?>" 
+                                           class="btn btn-sm btn-success">
+                                            <i class="bi bi-upload"></i> Upload
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <p class="text-muted mb-0">No courses found.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+
     <!-- ==================== TEACHER DASHBOARD ==================== -->
     <?php elseif ($user_role === 'teacher'): ?>
         <div class="card mt-4">
@@ -78,6 +129,7 @@
                                 <th>#</th>
                                 <th>Course Title</th>
                                 <th>Students Enrolled</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,6 +147,16 @@
                                     <td><?= $index + 1 ?></td>
                                     <td><?= esc($c['title'] ?? 'Unnamed Course') ?></td>
                                     <td><?= count($students) ?></td>
+                                    <td>
+                                        <a href="<?= base_url('materials/view/' . $courseId) ?>" 
+                                           class="btn btn-sm btn-info me-1">
+                                            <i class="bi bi-folder2-open"></i> View Materials
+                                        </a>
+                                        <a href="<?= base_url('admin/course/' . $courseId . '/upload') ?>" 
+                                           class="btn btn-sm btn-success">
+                                            <i class="bi bi-upload"></i> Upload
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -112,7 +174,13 @@
             <ul class="list-group list-group-flush" id="enrolledCourses">
                 <?php if (!empty($enrolledCourses)): ?>
                     <?php foreach ($enrolledCourses as $course): ?>
-                        <li class="list-group-item"><?= esc($course['title']) ?></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><?= esc($course['title']) ?></span>
+                            <a href="<?= base_url('materials/view/' . $course['id']) ?>" 
+                               class="btn btn-sm btn-info">
+                                <i class="bi bi-folder2-open"></i> View Materials
+                            </a>
+                        </li>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <li class="list-group-item text-muted no-enrollment-msg">
@@ -121,6 +189,7 @@
                 <?php endif; ?>
             </ul>
         </div>
+
 
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">Available Courses</div>
@@ -145,6 +214,9 @@
         <div id="alertBox" class="alert mt-3 d-none"></div>
     <?php endif; ?>
 </div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <!-- ✅ jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
