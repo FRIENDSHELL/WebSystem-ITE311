@@ -49,7 +49,17 @@ class Auth extends BaseController
                 'logged_in' => true,
             ]);
 
-            return redirect()->to('/dashboard');
+            // Role-based redirection
+            switch ($user['role']) {
+                case 'student':
+                    return redirect()->to('/announcements');
+                case 'teacher':
+                    return redirect()->to('/teacher/dashboard');
+                case 'admin':
+                    return redirect()->to('/admin/dashboard');
+                default:
+                    return redirect()->to('/dashboard');
+            }
         }
 
         return view('auth/login');
@@ -98,7 +108,8 @@ class Auth extends BaseController
                     'logged_in' => true,
                 ]);
 
-                return redirect()->to('/dashboard');
+                // Role-based redirection (students go to announcements)
+                return redirect()->to('/announcements');
             }
 
             return redirect()->back()->with('error', 'Failed to register. Please try again.');
@@ -200,6 +211,10 @@ class Auth extends BaseController
                 ->getResultArray();
         }
 
+        // ✅ Fetch announcements for all users
+        $announcementModel = new \App\Models\AnnouncementModel();
+        $announcements = $announcementModel->orderBy('created_at', 'DESC')->findAll();
+
         // ✅ Send data to view
         $data = [
             'user_name'       => $user_name,
@@ -207,6 +222,7 @@ class Auth extends BaseController
             'courses'         => $courses,
             'enrolledCourses' => $enrolledCourses,
             'users'           => $users,
+            'announcements'   => $announcements,
         ];
 
         return view('auth/dashboard', $data);

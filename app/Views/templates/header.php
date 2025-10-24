@@ -90,7 +90,6 @@
             <ul class="navbar-nav ms-auto align-items-center">
                 <?php if (session()->get('role') === 'student'): ?>
                     <li class="nav-item"><a class="nav-link" href="<?= site_url('student/courses') ?>">My Courses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= site_url('student/notifications') ?>">Notifications</a></li>
 
                 <?php elseif (session()->get('role') === 'teacher'): ?>
                     <li class="nav-item"><a class="nav-link" href="<?= site_url('teacher/courses') ?>">My Classes</a></li>
