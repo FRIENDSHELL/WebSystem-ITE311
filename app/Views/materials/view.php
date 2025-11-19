@@ -79,8 +79,19 @@
                                             </td>
                                             <td>
                                                 <?php
-                                                    $date = new DateTime($material['created_at']);
-                                                    echo $date->format('M d, Y h:i A');
+                                                    if (!empty($material['created_at'])) {
+                                                        try {
+                                                            $date = new DateTime($material['created_at']);
+                                                            echo '<small class="text-muted">';
+                                                            echo '<i class="bi bi-calendar3"></i> ' . $date->format('M d, Y') . '<br>';
+                                                            echo '<i class="bi bi-clock"></i> ' . $date->format('h:i A');
+                                                            echo '</small>';
+                                                        } catch (Exception $e) {
+                                                            echo '<small class="text-muted">Date not available</small>';
+                                                        }
+                                                    } else {
+                                                        echo '<small class="text-muted">Date not available</small>';
+                                                    }
                                                 ?>
                                             </td>
                                             <td class="text-center">

@@ -17,7 +17,7 @@ class Course extends BaseController
             ]);
         }
 
-        $user_id = session()->get('user_id');
+        $user_id = session()->get('id');
         $course_id = $this->request->getPost('course_id');
 
         // ✅ Validate course_id

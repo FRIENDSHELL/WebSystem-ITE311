@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\MaterialModel;
 use App\Models\EnrollmentModel;
+use App\Models\NotificationModel;
 use CodeIgniter\Controller;
 
 class Materials extends BaseController
@@ -31,18 +32,18 @@ class Materials extends BaseController
             return redirect()->to('/dashboard')->with('error', 'Invalid course.');
         }
 
+        $db = \Config\Database::connect();
+        $course = $db->table('courses')
+            ->where('id', $course_id)
+            ->get()
+            ->getRowArray();
+
+        if (!$course) {
+            return redirect()->to('/dashboard')->with('error', 'Course not found.');
+        }
+
         // GET request: Show upload form
         if ($this->request->getMethod() !== 'POST') {
-            $db = \Config\Database::connect();
-            $course = $db->table('courses')
-                ->where('id', $course_id)
-                ->get()
-                ->getRowArray();
-
-            if (!$course) {
-                return redirect()->to('/dashboard')->with('error', 'Course not found.');
-            }
-
             return view('materials/upload', [
                 'course_id' => $course_id,
                 'course_title' => $course['title']
@@ -97,6 +98,7 @@ class Materials extends BaseController
             ];
 
             if ($materialModel->insertMaterial($data)) {
+                $this->notifyEnrolledStudents($course['id'], $course['title'], $file->getClientName());
                 return redirect()->to('/dashboard')
                     ->with('success', 'Material uploaded successfully!');
             } else {
@@ -248,5 +250,27 @@ class Materials extends BaseController
             'materials' => $materials,
             'user_role' => $userRole
         ]);
+    }
+
+    /**
+     * Notify enrolled students that a new material is available.
+     */
+    protected function notifyEnrolledStudents(int $courseId, string $courseTitle, string $fileName): void
+    {
+        $enrollmentModel = new EnrollmentModel();
+        $userIds = $enrollmentModel->getUserIdsByCourse($courseId);
+
+        if (empty($userIds)) {
+            return;
+        }
+
+        $notificationModel = new NotificationModel();
+        $message = sprintf(
+            "New material \"%s\" has been uploaded for %s.",
+            $fileName,
+            $courseTitle
+        );
+
+        $notificationModel->createNotifications($userIds, $message);
     }
 }

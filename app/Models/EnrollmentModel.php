@@ -22,4 +22,13 @@ class EnrollmentModel extends Model
                     ->where('course_id', $course_id)
                     ->countAllResults() > 0;
     }
+
+    /**
+     * Get the list of user IDs enrolled in a course.
+     */
+    public function getUserIdsByCourse(int $courseId): array
+    {
+        return $this->where('course_id', $courseId)
+                    ->findColumn('user_id') ?? [];
+    }
 }

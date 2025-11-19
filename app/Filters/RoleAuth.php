@@ -32,15 +32,27 @@ class RoleAuth implements FilterInterface
             }
         }
 
-        // Student can access routes starting with /student and /announcements
+        // Student can access routes starting with /student, /dashboard, and /announcements
         if ($userRole === 'student') {
-            if (strpos($currentPath, '/student') === 0 || $currentPath === '/announcements') {
+            if (strpos($currentPath, '/student') === 0 || 
+                $currentPath === '/dashboard' || 
+                $currentPath === '/announcements' ||
+                strpos($currentPath, '/materials') === 0) {
                 return; // Allow access
             }
         }
 
         // If user tries to access a route not permitted for their role
-        return redirect()->to('/announcements')->with('error', 'Access Denied: Insufficient Permissions');
+        // Redirect based on user role to their appropriate dashboard
+        if ($userRole === 'student') {
+            return redirect()->to('/dashboard')->with('error', 'Access Denied: Insufficient Permissions');
+        } elseif ($userRole === 'teacher') {
+            return redirect()->to('/teacher/dashboard')->with('error', 'Access Denied: Insufficient Permissions');
+        } elseif ($userRole === 'admin') {
+            return redirect()->to('/admin/dashboard')->with('error', 'Access Denied: Insufficient Permissions');
+        }
+        
+        return redirect()->to('/dashboard')->with('error', 'Access Denied: Insufficient Permissions');
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)

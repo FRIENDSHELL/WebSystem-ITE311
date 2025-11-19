@@ -19,6 +19,7 @@ $routes->get('announcements', 'Announcement::index');
 
 // 🔹 Role-based dashboards
 $routes->get('dashboard', 'Auth::dashboard'); // optional: fallback dashboard
+$routes->post('dashboard/enroll', 'Auth::enroll'); // Enrollment endpoint
 
 // 🔹 Teacher routes (protected by RoleAuth filter)
 $routes->group('teacher', ['filter' => 'roleauth'], function($routes) {
@@ -55,3 +56,7 @@ $routes->get('contact', 'Home::contact');
 
 // 🔹 Test route for debugging
 $routes->get('test/announcements', 'Test::announcements');
+
+// notification routes
+$routes->get('/notifications', 'Notifications::get');
+$routes->post('/notifications/mark_read/(:num)', 'Notifications::mark_as_read/$1');

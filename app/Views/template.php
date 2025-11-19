@@ -158,17 +158,21 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- LEFT SIDE NAV LINKS -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="<?= site_url('/') ?>">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= site_url('about') ?>">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= site_url('contact') ?>">Contact</a></li>
+
                 <?php if (session()->get('isLoggedIn')): ?>
                     <li class="nav-item"><a class="nav-link" href="<?= site_url('dashboard') ?>">Dashboard</a></li>
                 <?php endif; ?>
             </ul>
 
-            <ul class="navbar-nav ms-auto">
+            <!-- RIGHT SIDE NAVIGATION -->
+            <ul class="navbar-nav ms-auto align-items-center">
                 <?php if (!session()->get('isLoggedIn')): ?>
+                    <!-- Not logged in - Show Login and Register buttons -->
                     <li class="nav-item">
                         <a class="btn btn-outline-primary me-2" href="<?= site_url('login') ?>">Login</a>
                     </li>
@@ -176,6 +180,25 @@
                         <a class="btn btn-primary" href="<?= site_url('register') ?>">Register</a>
                     </li>
                 <?php else: ?>
+                    <!-- Logged in - Show notification and logout -->
+                    <!-- 🔔 Notification Dropdown Trigger -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link position-relative" href="#" id="notificationDropdown" data-bs-toggle="dropdown">
+                            <i class="bi bi-bell" style="font-size: 1.5rem;"></i>
+                            <!-- 🔴 Notification Badge -->
+                            <span id="notificationBadge"
+                                  class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill"
+                                  style="font-size: 0.7rem;">
+                                0
+                            </span>
+                        </a>
+                        <!-- 📩 Dropdown List -->
+                        <ul class="dropdown-menu dropdown-menu-end p-2" style="width: 300px; max-height: 250px; overflow-y: auto;">
+                            <div id="notificationList">
+                                <p class="text-center text-muted m-0">Loading...</p>
+                            </div>
+                        </ul>
+                    </li>
                     <li class="nav-item d-flex align-items-center me-3">
                         <span class="fw-bold text-dark">Hello, <?= esc(session()->get('name')) ?>!</span>
                     </li>

@@ -52,7 +52,7 @@ class Auth extends BaseController
             // Role-based redirection
             switch ($user['role']) {
                 case 'student':
-                    return redirect()->to('/announcements');
+                    return redirect()->to('/dashboard');
                 case 'teacher':
                     return redirect()->to('/teacher/dashboard');
                 case 'admin':
@@ -108,8 +108,8 @@ class Auth extends BaseController
                     'logged_in' => true,
                 ]);
 
-                // Role-based redirection (students go to announcements)
-                return redirect()->to('/announcements');
+                // Role-based redirection
+                return redirect()->to('/dashboard');
             }
 
             return redirect()->back()->with('error', 'Failed to register. Please try again.');
@@ -143,50 +143,6 @@ class Auth extends BaseController
         $user_id   = (int) $session->get('id');
         $user_name = $session->get('name');
         $user_role = $session->get('role');
-
-        // ✅ Handle enrollment (POST request)
-        if ($this->request->getMethod() === 'POST') {
-            $course_id = (int) $this->request->getPost('course_id');
-
-            if (empty($course_id) || empty($user_id)) {
-                return $this->response->setJSON([
-                    'status'  => 'error',
-                    'message' => 'Invalid course or user.'
-                ]);
-            }
-
-            // Check if already enrolled
-            $exists = $db->table('enrollments')
-                ->where('user_id', $user_id)
-                ->where('course_id', $course_id)
-                ->countAllResults();
-
-            if ($exists > 0) {
-                return $this->response->setJSON([
-                    'status'  => 'error',
-                    'message' => 'You are already enrolled in this course.'
-                ]);
-            }
-
-            // ✅ Insert enrollment safely
-            $inserted = $db->table('enrollments')->insert([
-                'user_id'    => $user_id,
-                'course_id'  => $course_id,
-                'created_at' => date('Y-m-d H:i:s'),
-            ]);
-
-            if ($inserted) {
-                return $this->response->setJSON([
-                    'status'  => 'success',
-                    'message' => 'You have successfully enrolled!'
-                ]);
-            }
-
-            return $this->response->setJSON([
-                'status'  => 'error',
-                'message' => 'Failed to enroll. Please try again.'
-            ]);
-        }
 
         // ✅ Load all courses
         $courses = $db->table('courses')
@@ -226,5 +182,72 @@ class Auth extends BaseController
         ];
 
         return view('auth/dashboard', $data);
+    }
+
+    /**
+     * 🔹 ENROLL IN COURSE (Separate method for cleaner routing)
+     */
+    public function enroll()
+    {
+        $session = session();
+
+        // ✅ Check login
+        if (!$session->get('logged_in') || !$session->get('id')) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'Please log in first.'
+            ]);
+        }
+
+        $db = \Config\Database::connect();
+        $user_id   = (int) $session->get('id');
+        $course_id = (int) $this->request->getPost('course_id');
+
+        // ✅ Validate input
+        if (empty($course_id) || empty($user_id)) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'Invalid course or user.'
+            ]);
+        }
+
+        // ✅ Check if already enrolled
+        $exists = $db->table('enrollments')
+            ->where('user_id', $user_id)
+            ->where('course_id', $course_id)
+            ->countAllResults();
+
+        if ($exists > 0) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'You are already enrolled in this course.'
+            ]);
+        }
+
+        // ✅ Insert enrollment safely
+        try {
+            $inserted = $db->table('enrollments')->insert([
+                'user_id'    => $user_id,
+                'course_id'  => $course_id,
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            if ($inserted) {
+                return $this->response->setJSON([
+                    'status'  => 'success',
+                    'message' => 'You have successfully enrolled!'
+                ]);
+            }
+
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'Failed to enroll. Please try again.'
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
     }
 }
