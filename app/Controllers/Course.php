@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CourseModel;
 use App\Models\EnrollmentModel;
 use CodeIgniter\Controller;
 
@@ -63,5 +64,31 @@ class Course extends BaseController
                 'message' => 'Database error: ' . $e->getMessage()
             ]);
         }
+ 
+ 
+    }
+
+    public function search()
+    {
+        $searchTerm = trim(
+            $this->request->getGet('term')
+            ?? $this->request->getGet('search_term')
+            ?? ''
+        );
+
+        $courseModel = new CourseModel();
+        $courses = $courseModel->search($searchTerm);
+
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON($courses);
+        }
+
+        $canEnroll = session()->get('logged_in') && session()->get('role') === 'student';
+
+        return view('course/index', [
+            'courses'    => $courses,
+            'searchTerm' => $searchTerm,
+            'canEnroll'  => $canEnroll,
+        ]);
     }
 }

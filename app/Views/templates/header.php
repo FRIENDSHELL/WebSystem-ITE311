@@ -10,6 +10,9 @@
     <!-- ✅ Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- ✅ Bootstrap Icons (for bell icon, etc.) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <!-- ✅ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -94,11 +97,20 @@
 
         .notification-item {
             font-size: 0.9rem;
-            border: 1px solid #f3d6e4;
             border-radius: 10px;
             padding: 0.75rem;
             margin-bottom: 0.5rem;
-            background: #fff6fb;
+        }
+
+        .notification-item.unread {
+            border: 1px solid #0d6efd33;
+            background: #e7f1ff;
+        }
+
+        .notification-item.read {
+            border: 1px solid #e0e0e0;
+            background: #f8f9fa;
+            opacity: 0.9;
         }
 
         .notification-item:last-child {

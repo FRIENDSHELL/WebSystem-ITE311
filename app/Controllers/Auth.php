@@ -56,7 +56,7 @@ class Auth extends BaseController
                 case 'teacher':
                     return redirect()->to('/teacher/dashboard');
                 case 'admin':
-                    return redirect()->to('/admin/dashboard');
+                    return redirect()->to('/dashboard');
                 default:
                     return redirect()->to('/dashboard');
             }

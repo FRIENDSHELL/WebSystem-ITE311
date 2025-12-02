@@ -35,41 +35,16 @@ class NotificationModel extends Model
                     ->update();
     }
 
-    /**
-     * Create a single notification entry.
-     */
-    public function createNotification(int $userId, string $message): bool
+    public function markAsUnread($id, $userId = null)
     {
-        return (bool) $this->insert([
-            'user_id'    => $userId,
-            'message'    => $message,
-            'is_read'    => 0,
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-    }
+        $conditions = ['id' => $id];
 
-    /**
-     * Create multiple notifications for the same message.
-     */
-    public function createNotifications(array $userIds, string $message): bool
-    {
-        $userIds = array_filter(array_unique(array_map('intval', $userIds)));
-
-        if (empty($userIds)) {
-            return true;
+        if ($userId !== null) {
+            $conditions['user_id'] = $userId;
         }
 
-        $timestamp = date('Y-m-d H:i:s');
-
-        $batch = array_map(function ($userId) use ($message, $timestamp) {
-            return [
-                'user_id'    => $userId,
-                'message'    => $message,
-                'is_read'    => 0,
-                'created_at' => $timestamp,
-            ];
-        }, $userIds);
-
-        return (bool) $this->insertBatch($batch);
+        return $this->where($conditions)
+                    ->set(['is_read' => 0])
+                    ->update();
     }
 }

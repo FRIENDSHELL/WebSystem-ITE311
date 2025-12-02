@@ -26,6 +26,14 @@ class UserSeeder extends Seeder
                 'role'       => 'student',
                 'created_at' => date('Y-m-d H:i:s'),
             ],
+            [
+                'id'    => 4,
+                'name'       => 'admin',
+                'email'      => 'admin@example.com',
+                'password'   => password_hash('admin123', PASSWORD_DEFAULT),
+                'role'       => 'admin',
+                'created_at' => date('Y-m-d H:i:s'),
+            ]
         ];
 
         $builder = $this->db->table('users');

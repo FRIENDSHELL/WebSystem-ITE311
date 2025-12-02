@@ -32,7 +32,6 @@
                 Welcome, <span class="text-primary text-capitalize"><?= esc($user_name ?? 'User') ?></span> 🎉
             </h3>
             <p class="text-muted mb-2">Role: <strong class="text-capitalize"><?= esc($user_role ?? '') ?></strong></p>
-            <a href="<?= base_url('auth/logout') ?>" class="btn btn-outline-danger btn-sm mt-2">Logout</a>
         </div>
     </div>
 
@@ -183,7 +182,8 @@
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                         <span>My Enrolled Courses</span>
-                        <span id="notificationBadge" class="badge bg-danger" style="display:none;">0</span>
+                        <div class="d-flex align-items-center gap-2">
+                        </div>
                     </div>
 
                     <ul class="list-group list-group-flush" id="enrolledCourses">
@@ -202,79 +202,22 @@
                             </li>
                         <?php endif; ?>
                     </ul>
-
-                    <div id="notificationList" class="p-3"></div>
                 </div>
             </div>
 
             <!-- Available Courses -->
             <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">Available Courses</div>
-                    <ul class="list-group list-group-flush" id="availableCourses">
-                        <?php if (!empty($courses)): ?>
-                            <?php foreach ($courses as $course): ?>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span class="course-title"><?= esc($course['title']) ?></span>
-                                    <button class="btn btn-sm btn-success enroll-btn" data-course-id="<?= esc($course['id']) ?>">
-                                        Enroll
-                                    </button>
-                                </li>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <li class="list-group-item text-muted">No available courses.</li>
-                        <?php endif; ?>
-                    </ul>
-
-                    <div id="alertBox" class="alert mt-3 d-none" role="alert"></div>
-                </div>
+                <?= view('course/index', [
+                    'courses'     => $courses ?? [],
+                    'searchTerm'  => $searchTerm ?? '',
+                    'canEnroll'   => true
+                ]) ?>
             </div>
         </div>
     <?php endif; ?>
 
-    <!-- Announcements (visible for all) -->
-    <div class="card mt-4">
-        <div class="card-header bg-info text-white fw-bold">
-            <i class="fas fa-bullhorn me-2"></i>Latest Announcements
-        </div>
-        <div class="card-body">
-            <?php if (empty($announcements)): ?>
-                <div class="alert alert-info mb-0">
-                    <h5>No announcements available</h5>
-                    <p class="mb-0">Check back later for updates.</p>
-                </div>
-            <?php else: ?>
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Title</th>
-                                <th>Content</th>
-                                <th>Date Posted</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($announcements as $announcement): ?>
-                                <tr>
-                                    <td><strong><?= esc($announcement['title']) ?></strong></td>
-                                    <td><?= nl2br(esc($announcement['content'])) ?></td>
-                                    <td>
-                                        <small class="text-muted">
-                                            <?= !empty($announcement['created_at']) ? date('M j, Y, g:i A', strtotime($announcement['created_at'])) : '—' ?>
-                                        </small>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
+ 
 
-<!-- Styles / Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <!-- jQuery (only once) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -322,11 +265,17 @@
 
         let html = '';
         (data.list || []).forEach(function(n) {
+            const isUnread = String(n.is_read) === '0';
+            const alertClass = isUnread ? 'alert-primary' : 'alert-secondary';
+            const buttonHtml = isUnread
+                ? `<button data-id="${n.id}" class="btn btn-sm btn-outline-primary mark-read-btn">Mark as Read</button>`
+                : `<button data-id="${n.id}" class="btn btn-sm btn-outline-secondary mark-unread-btn">Mark as Unread</button>`;
+
             html += `
-                <div class="alert alert-info d-flex justify-content-between align-items-center mb-2">
+                <div class="alert ${alertClass} d-flex justify-content-between align-items-center mb-2">
                     <div class="me-2 small">${n.message}</div>
                     <div>
-                        <button data-id="${n.id}" class="btn btn-sm btn-secondary mark-read-btn">Mark as Read</button>
+                        ${buttonHtml}
                     </div>
                 </div>
             `;
@@ -350,6 +299,19 @@
         const id = $(this).data('id');
         if (!id) return;
         $.post('<?= base_url("notifications/mark_read") ?>/' + id)
+            .done(function() {
+                loadNotifications();
+            })
+            .fail(function() {
+                // handle error silently or notify user
+            });
+    });
+
+    // delegate mark-unread clicks
+    $(document).on('click', '.mark-unread-btn', function() {
+        const id = $(this).data('id');
+        if (!id) return;
+        $.post('<?= base_url("notifications/mark_unread") ?>/' + id)
             .done(function() {
                 loadNotifications();
             })

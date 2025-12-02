@@ -43,4 +43,23 @@ class Notifications extends BaseController
             'csrfToken' => csrf_hash()
         ]);
     }
+
+    public function mark_as_unread($id)
+    {
+        $userId = session()->get('id');
+
+        if (!$userId) {
+            return $this->response->setStatusCode(401)->setJSON([
+                'message' => 'Unauthorized'
+            ]);
+        }
+
+        $notif = new NotificationModel();
+        $notif->markAsUnread($id, $userId);
+
+        return $this->response->setJSON([
+            'status'    => 'success',
+            'csrfToken' => csrf_hash()
+        ]);
+    }
 }

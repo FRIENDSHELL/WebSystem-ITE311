@@ -27,6 +27,61 @@
             </div>
         </div>
 
+
+        <!-- SEARCH BAR -->
+<div class="search-container">
+    <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Search courses..." />
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+
+<style>
+    .search-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    #searchForm {
+        display: flex;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    #searchInput {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px 0 0 6px;
+        outline: none;
+        font-size: 16px;
+        transition: 0.2s;
+    }
+
+    #searchInput:focus {
+        border-color: #007bff;
+    }
+
+    #searchForm button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 0 6px 6px 0;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    #searchForm button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+
+
         <!-- Announcements Section -->
         <div class="row">
             <div class="col-12">

@@ -20,10 +20,11 @@
     const list       = $('#headerNotificationList');
     const refreshBtn = $('#refreshNotificationsBtn');
 
-    const notificationsUrl   = '<?= base_url("notifications") ?>';
-    const markAsReadBaseUrl  = '<?= base_url("notifications/mark_read") ?>';
-    const csrfName           = $('meta[name="csrf-token-name"]').attr('content') || '<?= csrf_token() ?>';
-    let csrfHash             = $('meta[name="csrf-token"]').attr('content') || '<?= csrf_hash() ?>';
+    const notificationsUrl      = '<?= base_url("notifications") ?>';
+    const markAsReadBaseUrl      = '<?= base_url("notifications/mark_read") ?>';
+    const markAsUnreadBaseUrl    = '<?= base_url("notifications/mark_unread") ?>';
+    const csrfName               = $('meta[name="csrf-token-name"]').attr('content') || '<?= csrf_token() ?>';
+    let csrfHash                 = $('meta[name="csrf-token"]').attr('content') || '<?= csrf_hash() ?>';
 
     function updateBadge(count) {
         if (count && count > 0) {
@@ -42,13 +43,21 @@
 
         const items = data.list.map(function(item) {
             const createdAt = item.created_at ? `<small class="text-secondary d-block mb-1">${item.created_at}</small>` : '';
+            const isUnread = String(item.is_read) === '0';
+            const itemClass = isUnread ? 'notification-item unread' : 'notification-item read';
+            const buttonHtml = isUnread
+                ? `<button type="button" class="btn btn-sm btn-outline-primary mark-read-btn" data-id="${item.id}">
+                        Mark as read
+                   </button>`
+                : `<button type="button" class="btn btn-sm btn-outline-secondary mark-unread-btn" data-id="${item.id}">
+                        Mark as unread
+                   </button>`;
+
             return `
-                <div class="notification-item">
+                <div class="${itemClass}">
                     ${createdAt}
                     <p class="mb-2 text-dark">${item.message}</p>
-                    <button type="button" class="btn btn-sm btn-outline-secondary mark-read-btn" data-id="${item.id}">
-                        Mark as read
-                    </button>
+                    ${buttonHtml}
                 </div>
             `;
         });
@@ -103,6 +112,25 @@
         }
 
         $.post(`${markAsReadBaseUrl}/${notificationId}`, {
+            [csrfName]: csrfHash
+        })
+        .done(function(response) {
+            if (response && response.csrfToken) {
+                csrfHash = response.csrfToken;
+                $('meta[name="csrf-token"]').attr('content', csrfHash);
+            }
+            loadNotifications(false);
+        });
+    });
+
+    $(document).on('click', '.mark-unread-btn', function(event) {
+        event.stopPropagation();
+        const notificationId = $(this).data('id');
+        if (!notificationId) {
+            return;
+        }
+
+        $.post(`${markAsUnreadBaseUrl}/${notificationId}`, {
             [csrfName]: csrfHash
         })
         .done(function(response) {

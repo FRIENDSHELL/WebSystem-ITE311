@@ -60,3 +60,7 @@ $routes->get('test/announcements', 'Test::announcements');
 // notification routes
 $routes->get('/notifications', 'Notifications::get');
 $routes->post('/notifications/mark_read/(:num)', 'Notifications::mark_as_read/$1');
+$routes->post('/notifications/mark_unread/(:num)', 'Notifications::mark_as_unread/$1');
+
+
+$routes->get('course/search', 'Course::search');
