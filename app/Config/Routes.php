@@ -38,7 +38,10 @@ $routes->get('/materials/download/(:num)', 'Materials::download/$1');
 // 🔹 Admin routes (protected by RoleAuth filter)
 $routes->group('admin', ['filter' => 'roleauth'], function($routes) {
     $routes->get('dashboard', 'Admin::dashboard');
-    // Add more admin-only routes here if needed
+    $routes->get('users', 'Admin::users');
+    $routes->post('users/add', 'Admin::addUser');
+    $routes->post('users/update/(:num)', 'Admin::updateUser/$1');
+    $routes->get('users/delete/(:num)', 'Admin::deleteUser/$1');
 });
 
 

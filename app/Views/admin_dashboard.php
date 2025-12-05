@@ -1,130 +1,227 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-4">
-        <!-- Welcome Section -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center">Welcome, Admin!</h3>
-                    </div>
-                    <div class="card-body text-center">
-                        <h4>Hello, <?= esc($user_name) ?>!</h4>
-                        <p class="text-muted">You are logged in as: <strong><?= esc($user_role) ?></strong></p>
-                        <hr>
-                        <p>This is your admin dashboard. More features will be added here.</p>
-                        <a href="/announcements" class="btn btn-primary">View All Announcements</a>
-                        <a href="/logout" class="btn btn-secondary">Logout</a>
+<?= $this->include('templates/header', ['title' => $title ?? 'Admin Dashboard']) ?>
+
+<main class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold mb-4">Admin Dashboard</h2>
+            
+            <!-- Flash Messages -->
+            <?php if (session()->getFlashdata('success')): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= esc(session()->getFlashdata('success')) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+
+            <?php if (session()->getFlashdata('error')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= esc(session()->getFlashdata('error')) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- Welcome Card -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body text-center py-4">
+                    <h3 class="card-title mb-2">
+                        Welcome, <span class="text-primary"><?= esc($user_name) ?></span>! 👋
+                    </h3>
+                    <p class="text-muted mb-0">You are logged in as: <strong class="text-capitalize"><?= esc($user_role) ?></strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-subtitle mb-2 text-white-50">Total Users</h6>
+                            <h2 class="card-title mb-0"><?= esc($totalUsers ?? 0) ?></h2>
+                        </div>
+                        <div>
+                            <i class="bi bi-people fs-1 opacity-50"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <!-- SEARCH BAR -->
-<div class="search-container">
-    <form id="searchForm">
-        <input type="text" id="searchInput" placeholder="Search courses..." />
-        <button type="submit">Search</button>
-    </form>
-</div>
-
-
-<style>
-    .search-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    #searchForm {
-        display: flex;
-        width: 100%;
-        max-width: 500px;
-    }
-
-    #searchInput {
-        flex: 1;
-        padding: 10px 15px;
-        border: 1px solid #ccc;
-        border-radius: 6px 0 0 6px;
-        outline: none;
-        font-size: 16px;
-        transition: 0.2s;
-    }
-
-    #searchInput:focus {
-        border-color: #007bff;
-    }
-
-    #searchForm button {
-        padding: 10px 20px;
-        border: none;
-        background-color: #007bff;
-        color: white;
-        border-radius: 0 6px 6px 0;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    #searchForm button:hover {
-        background-color: #0056b3;
-    }
-</style>
-
-
-
-        <!-- Announcements Section -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Latest Announcements</h4>
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-success h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-subtitle mb-2 text-white-50">Students</h6>
+                            <h2 class="card-title mb-0"><?= esc($totalStudents ?? 0) ?></h2>
+                        </div>
+                        <div>
+                            <i class="bi bi-person-check fs-1 opacity-50"></i>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <?php if (empty($announcements)): ?>
-                            <div class="alert alert-info">
-                                <h5>No announcements available</h5>
-                                <p class="mb-0">Check back later for updates.</p>
-                            </div>
-                        <?php else: ?>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Content</th>
-                                            <th>Date Posted</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach($announcements as $announcement): ?>
-                                            <tr>
-                                                <td><strong><?= esc($announcement['title']) ?></strong></td>
-                                                <td><?= nl2br(esc($announcement['content'])) ?></td>
-                                                <td>
-                                                    <small class="text-muted">
-                                                        <?= $announcement['created_at'] ? date('M j, Y, g:i A', strtotime($announcement['created_at'])) : '—' ?>
-                                                    </small>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-info h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-subtitle mb-2 text-white-50">Teachers</h6>
+                            <h2 class="card-title mb-0"><?= esc($totalTeachers ?? 0) ?></h2>
+                        </div>
+                        <div>
+                            <i class="bi bi-person-badge fs-1 opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-warning h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-subtitle mb-2 text-white-50">Courses</h6>
+                            <h2 class="card-title mb-0"><?= esc($totalCourses ?? 0) ?></h2>
+                        </div>
+                        <div>
+                            <i class="bi bi-book fs-1 opacity-50"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0"><i class="bi bi-lightning-charge"></i> Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2">
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('admin/users') ?>" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-people"></i> Manage Users
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('announcements') ?>" class="btn btn-outline-success w-100">
+                                <i class="bi bi-megaphone"></i> View Announcements
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('course/search') ?>" class="btn btn-outline-info w-100">
+                                <i class="bi bi-search"></i> Search Courses
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('dashboard') ?>" class="btn btn-outline-secondary w-100">
+                                <i class="bi bi-house"></i> Main Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Announcements -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-bullhorn"></i> Latest Announcements</h5>
+                    <a href="<?= site_url('announcements') ?>" class="btn btn-sm btn-primary">View All</a>
+                </div>
+                <div class="card-body">
+                    <?php if (empty($announcements)): ?>
+                        <div class="alert alert-info mb-0">
+                            <i class="bi bi-info-circle"></i> No announcements available yet.
+                        </div>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Content</th>
+                                        <th>Date Posted</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($announcements as $announcement): ?>
+                                        <tr>
+                                            <td><strong><?= esc($announcement['title']) ?></strong></td>
+                                            <td>
+                                                <?php 
+                                                $content = esc($announcement['content']);
+                                                echo strlen($content) > 100 ? substr($content, 0, 100) . '...' : $content;
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <small class="text-muted">
+                                                    <?= $announcement['created_at'] ? date('M j, Y, g:i A', strtotime($announcement['created_at'])) : '—' ?>
+                                                </small>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Statistics -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="bi bi-graph-up"></i> System Statistics</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> 
+                            <strong>Total Announcements:</strong> <?= esc($totalAnnouncements ?? 0) ?>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> 
+                            <strong>Total Enrollments:</strong> <?= esc($totalEnrollments ?? 0) ?>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> 
+                            <strong>Total Admins:</strong> <?= esc($totalAdmins ?? 0) ?>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="bi bi-info-circle"></i> System Information</h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2"><strong>Current User:</strong> <?= esc($user_name) ?></p>
+                    <p class="mb-2"><strong>Role:</strong> <span class="badge bg-primary"><?= esc(ucfirst($user_role)) ?></span></p>
+                    <p class="mb-0"><strong>Last Login:</strong> <span class="text-muted">Just now</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<?= $this->include('templates/footer') ?>

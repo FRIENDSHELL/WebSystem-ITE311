@@ -16,18 +16,25 @@ class RoleAuth implements FilterInterface
         }
 
         $userRole = session()->get('role');
-        $currentPath = $request->getUri()->getPath();
-
+        $uri = $request->getUri();
+        $currentPath = $uri->getPath();
+        
+        // Get the route segments to check
+        $segments = $uri->getSegments();
+        
         // Admin can access any route starting with /admin
         if ($userRole === 'admin') {
-            if (strpos($currentPath, '/admin') === 0) {
+            // Check if path starts with /admin or first segment is 'admin'
+            if (strpos($currentPath, '/admin') === 0 || 
+                (isset($segments[0]) && $segments[0] === 'admin')) {
                 return; // Allow access
             }
         }
 
         // Teacher can only access routes starting with /teacher
         if ($userRole === 'teacher') {
-            if (strpos($currentPath, '/teacher') === 0) {
+            if (strpos($currentPath, '/teacher') === 0 || 
+                (isset($segments[0]) && $segments[0] === 'teacher')) {
                 return; // Allow access
             }
         }
@@ -35,6 +42,7 @@ class RoleAuth implements FilterInterface
         // Student can access routes starting with /student, /dashboard, and /announcements
         if ($userRole === 'student') {
             if (strpos($currentPath, '/student') === 0 || 
+                (isset($segments[0]) && $segments[0] === 'student') ||
                 $currentPath === '/dashboard' || 
                 $currentPath === '/announcements' ||
                 strpos($currentPath, '/materials') === 0) {
