@@ -15,9 +15,9 @@
                     <div>
                         <?php if (session()->get('logged_in')): ?>
                             <span class="text-muted">Welcome, <?= esc(session()->get('name')) ?>!</span>
-                            <a href="/logout" class="btn btn-outline-secondary btn-sm ms-2">Logout</a>
+                            <a href="<?= site_url('logout') ?>" class="btn btn-outline-secondary btn-sm ms-2">Logout</a>
                         <?php else: ?>
-                            <a href="/login" class="btn btn-primary btn-sm">Login</a>
+                            <a href="<?= site_url('login') ?>" class="btn btn-primary btn-sm">Login</a>
                         <?php endif; ?>
                     </div>
                 </div>

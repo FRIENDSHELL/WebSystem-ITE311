@@ -12,7 +12,7 @@ class RoleAuth implements FilterInterface
     {
         // Check if user is logged in
         if (!session()->get('logged_in')) {
-            return redirect()->to('/login')->with('error', 'Please log in first.');
+            return redirect()->to(site_url('login'))->with('error', 'Please log in first.');
         }
 
         $userRole = session()->get('role');
@@ -53,14 +53,14 @@ class RoleAuth implements FilterInterface
         // If user tries to access a route not permitted for their role
         // Redirect based on user role to their appropriate dashboard
         if ($userRole === 'student') {
-            return redirect()->to('/dashboard')->with('error', 'Access Denied: Insufficient Permissions');
+            return redirect()->to(site_url('dashboard'))->with('error', 'Access Denied: Insufficient Permissions');
         } elseif ($userRole === 'teacher') {
-            return redirect()->to('/teacher/dashboard')->with('error', 'Access Denied: Insufficient Permissions');
+            return redirect()->to(site_url('teacher/dashboard'))->with('error', 'Access Denied: Insufficient Permissions');
         } elseif ($userRole === 'admin') {
-            return redirect()->to('/admin/dashboard')->with('error', 'Access Denied: Insufficient Permissions');
+            return redirect()->to(site_url('admin/dashboard'))->with('error', 'Access Denied: Insufficient Permissions');
         }
         
-        return redirect()->to('/dashboard')->with('error', 'Access Denied: Insufficient Permissions');
+        return redirect()->to(site_url('dashboard'))->with('error', 'Access Denied: Insufficient Permissions');
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)

@@ -16,7 +16,7 @@ class Auth extends BaseController
     {
         // If already logged in → go to dashboard
         if (session()->get('logged_in')) {
-            return redirect()->to('/dashboard');
+            return redirect()->to(site_url('dashboard'));
         }
 
         if ($this->request->getMethod() === 'POST') {
@@ -40,6 +40,11 @@ class Auth extends BaseController
                     ->with('error', 'Invalid email or password.');
             }
 
+            // Ensure the admin account always keeps the admin role
+            if (isset($user['email']) && strtolower($user['email']) === 'admin@example.com') {
+                $user['role'] = 'admin';
+            }
+
             // Start session
             session()->set([
                 'id'        => $user['id'],
@@ -52,13 +57,13 @@ class Auth extends BaseController
             // Role-based redirection
             switch ($user['role']) {
                 case 'student':
-                    return redirect()->to('/dashboard');
+                    return redirect()->to(site_url('dashboard'));
                 case 'teacher':
-                    return redirect()->to('/teacher/dashboard');
+                    return redirect()->to(site_url('teacher/dashboard'));
                 case 'admin':
-                    return redirect()->to('/dashboard');
+                    return redirect()->to(site_url('admin/dashboard'));
                 default:
-                    return redirect()->to('/dashboard');
+                    return redirect()->to(site_url('dashboard'));
             }
         }
 
@@ -72,13 +77,19 @@ class Auth extends BaseController
     {
         // If already logged in → go to dashboard
         if (session()->get('logged_in')) {
-            return redirect()->to('/dashboard');
+            return redirect()->to(site_url('dashboard'));
         }
 
         if ($this->request->getMethod() === 'POST') {
+            // Normalize fields to prevent duplicates and special chars
+            $postData = $this->request->getPost();
+            $postData['name']  = trim($postData['name'] ?? '');
+            $postData['email'] = strtolower(trim($postData['email'] ?? ''));
+            $this->request->setGlobal('post', $postData);
+
             // Validate form
             if (!$this->validate([
-                'name'             => 'required|min_length[3]|max_length[50]',
+                'name'             => 'required|min_length[3]|max_length[50]|alpha_space',
                 'email'            => 'required|valid_email|is_unique[users.email]',
                 'password'         => 'required|min_length[4]',
                 'confirm_password' => 'matches[password]',
@@ -89,9 +100,17 @@ class Auth extends BaseController
             }
 
             $userModel = new UserModel();
+            $normalizedEmail = $this->request->getPost('email');
+            // Extra guard against case-sensitive duplicates
+            if ($userModel->where('LOWER(email)', strtolower($normalizedEmail))->first()) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Email is already registered.');
+            }
+
             $userData = [
                 'name'     => $this->request->getPost('name'),
-                'email'    => $this->request->getPost('email'),
+                'email'    => $normalizedEmail,
                 'password' => $this->request->getPost('password'), // hashed in model
                 'role'     => 'student',
             ];
@@ -109,7 +128,7 @@ class Auth extends BaseController
                 ]);
 
                 // Role-based redirection
-                return redirect()->to('/dashboard');
+                return redirect()->to(site_url('dashboard'));
             }
 
             return redirect()->back()->with('error', 'Failed to register. Please try again.');
@@ -124,7 +143,7 @@ class Auth extends BaseController
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/login')->with('message', 'You have been logged out.');
+        return redirect()->to(site_url('login'))->with('message', 'You have been logged out.');
     }
 
     /**
@@ -136,7 +155,7 @@ class Auth extends BaseController
 
         // ✅ Check login
         if (!$session->get('logged_in') || !$session->get('id')) {
-            return redirect()->to('/login')->with('error', 'Please log in first.');
+            return redirect()->to(site_url('login'))->with('error', 'Please log in first.');
         }
 
         $db = \Config\Database::connect();

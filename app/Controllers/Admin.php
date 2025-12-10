@@ -93,9 +93,15 @@ class Admin extends BaseController
         }
 
         if ($this->request->getMethod() === 'POST') {
+            // Normalize inputs to avoid duplicates and special chars
+            $postData = $this->request->getPost();
+            $postData['name']  = trim($postData['name'] ?? '');
+            $postData['email'] = strtolower(trim($postData['email'] ?? ''));
+            $this->request->setGlobal('post', $postData);
+
             // Validate form
             if (!$this->validate([
-                'name'     => 'required|min_length[3]|max_length[50]',
+                'name'     => 'required|min_length[3]|max_length[50]|alpha_space',
                 'email'    => 'required|valid_email|is_unique[users.email]',
                 'password' => 'required|min_length[4]',
                 'role'     => 'required|in_list[student,teacher,admin]',
@@ -106,9 +112,16 @@ class Admin extends BaseController
             }
 
             $userModel = new UserModel();
+            $normalizedEmail = $this->request->getPost('email');
+            if ($userModel->where('LOWER(email)', strtolower($normalizedEmail))->first()) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Email is already registered.');
+            }
+
             $userData = [
                 'name'     => $this->request->getPost('name'),
-                'email'    => $this->request->getPost('email'),
+                'email'    => $normalizedEmail,
                 'password' => $this->request->getPost('password'),
                 'role'     => $this->request->getPost('role'),
             ];

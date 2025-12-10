@@ -15,7 +15,14 @@
 <meta name="csrf-token" content="<?= csrf_hash() ?>">
 
 <div class="container mt-4">
-    <h2 class="text-center fw-bold mb-4">Dashboard</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0">Dashboard</h2>
+        <?php if (($user_role ?? '') === 'teacher'): ?>
+            <a href="<?= site_url('teacher/dashboard') ?>" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-arrow-left"></i> Back to Teacher Dashboard
+            </a>
+        <?php endif; ?>
+    </div>
 
     <!-- Flash messages -->
     <?php if (session()->getFlashdata('success')): ?>

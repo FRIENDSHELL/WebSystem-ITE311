@@ -2,9 +2,13 @@
 
 <main class="container">
     <div class="row mb-4">
-        <div class="col-12">
-            <h2 class="fw-bold mb-4">Admin Dashboard</h2>
-            
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h2 class="fw-bold mb-0">Admin Dashboard</h2>
+            <a href="<?= site_url('dashboard') ?>" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-arrow-left"></i> Back to Main Dashboard
+            </a>
+        </div>
+        <div class="col-12 mt-3">
             <!-- Flash Messages -->
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
