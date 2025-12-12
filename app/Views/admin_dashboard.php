@@ -114,62 +114,57 @@
                 <div class="card-body">
                     <div class="row g-2">
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('admin/users') ?>" class="btn btn-outline-primary w-100">
+                            <a href="<?= site_url('admin/users') ?>" class="btn w-100 quick-action-btn" style="background-color: #ffb3d9; border-color: #ff80c1; color: #8b0066;">
                                 <i class="bi bi-people"></i> Manage Users
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('admin/courses') ?>" class="btn btn-outline-success w-100">
+                            <a href="<?= site_url('admin/courses') ?>" class="btn w-100 quick-action-btn" style="background-color: #b19cd9; border-color: #9370db; color: #4b0082;">
                                 <i class="bi bi-book"></i> Manage Courses
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('admin/semesters') ?>" class="btn btn-outline-info w-100">
+                            <a href="<?= site_url('admin/semesters') ?>" class="btn w-100 quick-action-btn" style="background-color: #87ceeb; border-color: #5f9ea0; color: #003366;">
                                 <i class="bi bi-calendar3"></i> Manage Semesters
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('admin/terms') ?>" class="btn btn-outline-warning w-100">
+                            <a href="<?= site_url('admin/terms') ?>" class="btn w-100 quick-action-btn" style="background-color: #90ee90; border-color: #32cd32; color: #006400;">
                                 <i class="bi bi-calendar-week"></i> Manage Terms
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('admin/school-years') ?>" class="btn btn-outline-danger w-100">
+                            <a href="<?= site_url('admin/school-years') ?>" class="btn w-100 quick-action-btn" style="background-color: #20b2aa; border-color: #008b8b; color: #003d3d;">
                                 <i class="bi bi-calendar-range"></i> School Years
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('admin/enrollments') ?>" class="btn btn-outline-success w-100">
+                            <a href="<?= site_url('admin/enrollments') ?>" class="btn w-100 quick-action-btn" style="background-color: #d2b48c; border-color: #bc9a6a; color: #5c4a2a;">
                                 <i class="bi bi-person-check"></i> Manage Enrollments
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('announcements') ?>" class="btn btn-outline-secondary w-100">
+                            <a href="<?= site_url('announcements') ?>" class="btn w-100 quick-action-btn" style="background-color: #e6e6fa; border-color: #d8bfd8; color: #6a5acd;">
                                 <i class="bi bi-megaphone"></i> Announcements
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('materials') ?>" class="btn btn-outline-primary w-100">
+                            <a href="<?= site_url('materials') ?>" class="btn w-100 quick-action-btn" style="background-color: #ffb3d9; border-color: #ff80c1; color: #8b0066;">
                                 <i class="bi bi-folder"></i> Course Materials
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('materials/upload') ?>" class="btn btn-outline-success w-100">
+                            <a href="<?= site_url('materials/upload') ?>" class="btn w-100 quick-action-btn" style="background-color: #b19cd9; border-color: #9370db; color: #4b0082;">
                                 <i class="bi bi-cloud-upload"></i> Upload Material
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('course/search') ?>" class="btn btn-outline-dark w-100">
+                            <a href="<?= site_url('course/search') ?>" class="btn w-100 quick-action-btn" style="background-color: #87ceeb; border-color: #5f9ea0; color: #003366;">
                                 <i class="bi bi-search"></i> Search Courses
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('admin/enrollments') ?>" class="btn btn-outline-success w-100">
-                                <i class="bi bi-person-plus"></i> Manage Enrollments
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('dashboard') ?>" class="btn btn-outline-primary w-100">
+                            <a href="<?= site_url('dashboard') ?>" class="btn w-100 quick-action-btn" style="background-color: #90ee90; border-color: #32cd32; color: #006400;">
                                 <i class="bi bi-house"></i> Main Dashboard
                             </a>
                         </div>
@@ -267,5 +262,19 @@
         </div>
     </div>
 </main>
+
+<style>
+.quick-action-btn {
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border-width: 2px;
+}
+
+.quick-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+}
+</style>
 
 <?= $this->include('templates/footer') ?>

@@ -480,3 +480,31 @@ in APPPATH\Views\materials\index.php on line 176.
  8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
  9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-12 08:29:07 --> mysqli_sql_exception: Unknown column 'created_at' in 'field list' in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `en...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `en...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `en...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `en...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Auth.php(263): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Auth->enroll()
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2025-12-12 08:29:15 --> mysqli_sql_exception: Unknown column 'created_at' in 'field list' in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `en...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `en...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `en...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `en...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Auth.php(263): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Auth->enroll()
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}

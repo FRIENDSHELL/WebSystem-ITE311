@@ -9,7 +9,7 @@ use App\Models\EnrollmentModel;
 
 class Materials extends BaseController
 {
-    protected $helpers = ['form', 'url'];
+    protected $helpers = ['form', 'url', 'materials'];
 
     /**
      * Display materials list with search

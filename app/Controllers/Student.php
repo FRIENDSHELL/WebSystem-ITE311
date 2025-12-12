@@ -51,6 +51,7 @@ class Student extends BaseController
             $recentMaterials = $materialModel->select('materials.*, courses.title as course_title')
                 ->join('courses', 'courses.id = materials.course_id')
                 ->whereIn('materials.course_id', $courseIds)
+                ->where('materials.is_active', 1)
                 ->orderBy('materials.created_at', 'DESC')
                 ->limit(5)
                 ->findAll();

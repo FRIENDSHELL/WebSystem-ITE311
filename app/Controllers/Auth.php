@@ -158,10 +158,24 @@ class Auth extends BaseController
             return redirect()->to(site_url('login'))->with('error', 'Please log in first.');
         }
 
+        $user_role = $session->get('role');
+        
+        // ✅ Redirect to role-specific dashboard
+        switch ($user_role) {
+            case 'student':
+                return redirect()->to(site_url('student/dashboard'));
+            case 'teacher':
+                return redirect()->to(site_url('teacher/dashboard'));
+            case 'admin':
+                return redirect()->to(site_url('admin/dashboard'));
+            default:
+                // Fallback to generic dashboard for other roles
+                break;
+        }
+
         $db = \Config\Database::connect();
         $user_id   = (int) $session->get('id');
         $user_name = $session->get('name');
-        $user_role = $session->get('role');
 
         // ✅ Load all courses
         $courses = $db->table('courses')
@@ -257,11 +271,25 @@ class Auth extends BaseController
 
         // ✅ Insert enrollment safely
         try {
-            $inserted = $db->table('enrollments')->insert([
-                'user_id'    => $user_id,
-                'course_id'  => $course_id,
-                'created_at' => date('Y-m-d H:i:s'),
-            ]);
+            $enrollmentModel = new \App\Models\EnrollmentModel();
+            
+            // Check if already enrolled
+            if ($enrollmentModel->isAlreadyEnrolled($user_id, $course_id)) {
+                return $this->response->setJSON([
+                    'status'  => 'error',
+                    'message' => 'You are already enrolled in this course.'
+                ]);
+            }
+            
+            // Use EnrollmentModel to insert (it handles timestamps correctly)
+            $enrollmentData = [
+                'user_id' => $user_id,
+                'course_id' => $course_id,
+                'enrollment_status' => 'Pending',
+                'enrollment_date' => date('Y-m-d H:i:s')
+            ];
+            
+            $inserted = $enrollmentModel->createDetailedEnrollment($enrollmentData);
 
             if ($inserted) {
                 return $this->response->setJSON([

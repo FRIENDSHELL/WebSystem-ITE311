@@ -39,15 +39,16 @@ class Course extends BaseController
             ]);
         }
 
-        // ✅ Insert enrollment
+        // ✅ Insert enrollment with proper status
         $data = [
             'user_id' => $user_id,
             'course_id' => $course_id,
-            'enrolled_at' => date('Y-m-d H:i:s')
+            'enrollment_status' => 'Pending',
+            'enrollment_date' => date('Y-m-d H:i:s')
         ];
 
         try {
-            if ($enrollmentModel->insert($data)) {
+            if ($enrollmentModel->createDetailedEnrollment($data)) {
                 return $this->response->setJSON([
                     'status' => 'success',
                     'message' => 'Enrollment successful!'

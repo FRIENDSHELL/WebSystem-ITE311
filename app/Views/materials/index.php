@@ -1,15 +1,6 @@
 <?php
-// Helper function for file size formatting - must be defined before use
-if (!function_exists('formatBytes')) {
-    function formatBytes($size, $precision = 2) {
-        if ($size == 0 || $size == null) {
-            return '0 B';
-        }
-        $base = log($size, 1024);
-        $suffixes = array('B', 'KB', 'MB', 'GB', 'TB');
-        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
-    }
-}
+// Load materials helper for formatBytes function
+helper('materials');
 ?>
 <?= $this->include('templates/header', ['title' => $title ?? 'Course Materials']) ?>
 

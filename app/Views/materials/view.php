@@ -210,14 +210,8 @@
 </main>
 
 <?php
-// Helper function for file size formatting
-if (!function_exists('formatBytes')) {
-    function formatBytes($size, $precision = 2) {
-        $base = log($size, 1024);
-        $suffixes = array('B', 'KB', 'MB', 'GB', 'TB');
-        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
-    }
-}
+// Load materials helper for formatBytes function
+helper('materials');
 ?>
 
 <?= $this->include('templates/footer') ?>

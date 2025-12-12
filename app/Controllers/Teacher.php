@@ -544,11 +544,21 @@ class Teacher extends BaseController
         $userId = (int) session()->get('id');
         $enrollmentModel = new EnrollmentModel();
         $courseModel = new CourseModel();
+        $notificationModel = new \App\Models\NotificationModel();
 
-        // Get enrollment details
-        $enrollment = $enrollmentModel->find($enrollmentId);
+        // Get enrollment details with course info
+        $enrollment = $enrollmentModel->select('enrollments.*, courses.course_name, courses.course_id as course_code')
+            ->join('courses', 'courses.id = enrollments.course_id')
+            ->where('enrollments.id', $enrollmentId)
+            ->first();
+            
         if (!$enrollment) {
             return redirect()->back()->with('error', 'Enrollment not found.');
+        }
+
+        // Check if already approved
+        if ($enrollment['enrollment_status'] === 'Approved') {
+            return redirect()->back()->with('info', 'This enrollment is already approved.');
         }
 
         // Verify that the course belongs to this teacher
@@ -559,7 +569,21 @@ class Teacher extends BaseController
 
         // Update enrollment status to approved
         if ($enrollmentModel->updateEnrollmentStatus($enrollmentId, 'Approved', 'Approved by teacher')) {
-            return redirect()->back()->with('success', 'Enrollment approved successfully!');
+            // Create notification for the student
+            $studentId = $enrollment['user_id'];
+            $courseName = $enrollment['course_name'] ?? $enrollment['course_code'] ?? 'the course';
+            $notificationMessage = "Your enrollment application for {$courseName} has been approved! You can now access course materials and participate in class activities.";
+            
+            $notificationModel->insert([
+                'user_id' => $studentId,
+                'message' => $notificationMessage,
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+
+            log_message('info', "Enrollment approved - ID: {$enrollmentId}, Student: {$studentId}, Course: {$courseName}");
+            
+            return redirect()->back()->with('success', 'Enrollment approved successfully! The student has been notified.');
         } else {
             return redirect()->back()->with('error', 'Failed to approve enrollment.');
         }
@@ -577,9 +601,14 @@ class Teacher extends BaseController
         $userId = (int) session()->get('id');
         $enrollmentModel = new EnrollmentModel();
         $courseModel = new CourseModel();
+        $notificationModel = new \App\Models\NotificationModel();
 
-        // Get enrollment details
-        $enrollment = $enrollmentModel->find($enrollmentId);
+        // Get enrollment details with course info
+        $enrollment = $enrollmentModel->select('enrollments.*, courses.course_name, courses.course_id as course_code')
+            ->join('courses', 'courses.id = enrollments.course_id')
+            ->where('enrollments.id', $enrollmentId)
+            ->first();
+            
         if (!$enrollment) {
             return redirect()->back()->with('error', 'Enrollment not found.');
         }
@@ -590,12 +619,31 @@ class Teacher extends BaseController
             return redirect()->back()->with('error', 'You can only reject enrollments for your own courses.');
         }
 
+        // Check if already rejected
+        if ($enrollment['enrollment_status'] === 'Rejected') {
+            return redirect()->back()->with('info', 'This enrollment is already rejected.');
+        }
+
         // Get rejection reason if provided
         $reason = $this->request->getPost('reason') ?? 'Rejected by teacher';
 
         // Update enrollment status to rejected
         if ($enrollmentModel->updateEnrollmentStatus($enrollmentId, 'Rejected', $reason)) {
-            return redirect()->back()->with('success', 'Enrollment rejected successfully!');
+            // Create notification for the student
+            $studentId = $enrollment['user_id'];
+            $courseName = $enrollment['course_name'] ?? $enrollment['course_code'] ?? 'the course';
+            $notificationMessage = "Your enrollment application for {$courseName} was not approved. " . (!empty($reason) && $reason !== 'Rejected by teacher' ? "Reason: {$reason}" : "Please contact your teacher for more information.");
+            
+            $notificationModel->insert([
+                'user_id' => $studentId,
+                'message' => $notificationMessage,
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+
+            log_message('info', "Enrollment rejected - ID: {$enrollmentId}, Student: {$studentId}, Course: {$courseName}");
+            
+            return redirect()->back()->with('success', 'Enrollment rejected successfully! The student has been notified.');
         } else {
             return redirect()->back()->with('error', 'Failed to reject enrollment.');
         }

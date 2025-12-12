@@ -12,6 +12,9 @@
 
     <!-- ✅ Bootstrap Icons (for bell icon, etc.) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- ✅ Animate.css for notification animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <!-- ✅ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -119,6 +122,31 @@
 
         .notification-item .btn {
             font-size: 0.75rem;
+        }
+
+        /* Badge pulse animation for new notifications */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        #headerNotificationBadge.pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        /* Bell shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px) rotate(-5deg); }
+            75% { transform: translateX(3px) rotate(5deg); }
+        }
+
+        #notificationBellWrapper.shake i {
+            animation: shake 0.5s ease-in-out;
         }
     </style>
 </head>
