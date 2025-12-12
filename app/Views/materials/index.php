@@ -186,7 +186,7 @@ if (!function_exists('formatBytes')) {
                                                         <br>
                                                         <small class="text-muted"><?= esc($material['original_name']) ?></small>
                                                         <br>
-                                                        <small class="text-muted"><?= formatBytes($material['file_size']) ?></small>
+                                                        <small class="text-muted"><?= isset($material['file_size']) && $material['file_size'] > 0 ? formatBytes($material['file_size']) : '0 B' ?></small>
                                                     </div>
                                                 </div>
                                             </td>

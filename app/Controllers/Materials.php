@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\MaterialModel;
 use App\Models\CourseModel;
+use App\Models\EnrollmentModel;
 
 class Materials extends BaseController
 {
@@ -239,6 +240,22 @@ class Materials extends BaseController
 
         if (!$material['is_active']) {
             return redirect()->back()->with('error', 'Material is not available for download.');
+        }
+
+        $userRole = session()->get('role');
+        $userId = session()->get('id');
+
+        // For students, verify they are enrolled in the course
+        if ($userRole === 'student') {
+            $enrollmentModel = new EnrollmentModel();
+            $enrollment = $enrollmentModel->where('user_id', $userId)
+                ->where('course_id', $material['course_id'])
+                ->whereIn('enrollment_status', ['Approved', 'Enrolled'])
+                ->first();
+            
+            if (!$enrollment) {
+                return redirect()->back()->with('error', 'You must be enrolled in this course to download materials.');
+            }
         }
 
         // Check if file exists
