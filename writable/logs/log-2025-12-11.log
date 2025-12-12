@@ -1,0 +1,624 @@
+ERROR - 2025-12-11 05:51:56 --> mysqli_sql_exception: Table 'courses' already exists in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `c...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `c...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `c...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `c...')
+#4 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Migrations\2025-12-11-054408_CreateCourseTable.php(46): CodeIgniter\Database\Forge->createTable('courses')
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateCourseTable->up()
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-11 08:59:07 --> mysqli_sql_exception: Table 'lms_egaran.school_years' doesn't exist in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `school_...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\app\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 08:59:07 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.school_years' doesn't exist
+[Method: GET, Route: admin/school-years]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 08:59:07 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.school_years' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 08:59:07 --> [Caused by] mysqli_sql_exception: Table 'lms_egaran.school_years' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 08:59:29 --> mysqli_sql_exception: Table 'lms_egaran.semesters' doesn't exist in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `courses...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `courses...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `courses...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `courses...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\app\Models\CourseModel.php(57): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Admin.php(264): App\Models\CourseModel->getCoursesWithRelations()
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Admin->courses()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 08:59:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.semesters' doesn't exist
+[Method: GET, Route: admin/courses]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `courses`.*, `semesters`.`name` as `semester_name`, `terms`.`name` as `term_name`, `school_years`.`year` as `school_year`, `users`.`name` as `teacher_name`
+FROM `courses`
+LEFT JOIN `semesters` ON `semesters`.`id` = `courses`.`semester_id`
+LEFT JOIN `terms` ON `terms`.`id` = `courses`.`term_id`
+LEFT JOIN `school_years` ON `school_years`.`id` = `courses`.`school_year_id`
+LEFT JOIN `users` ON `users`.`id` = `courses`.`user_id`
+ORDER BY `courses`.`title` ASC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\CourseModel.php(57): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin.php(264): App\Models\CourseModel->getCoursesWithRelations()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->courses()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 08:59:29 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.semesters' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `courses`.*, `semesters`.`name` as `semester_name`, `terms`.`name` as `term_name`, `school_years`.`year` as `school_year`, `users`.`name` as `teacher_name`
+FROM `courses`
+LEFT JOIN `semesters` ON `semesters`.`id` = `courses`.`semester_id`
+LEFT JOIN `terms` ON `terms`.`id` = `courses`.`term_id`
+LEFT JOIN `school_years` ON `school_years`.`id` = `courses`.`school_year_id`
+LEFT JOIN `users` ON `users`.`id` = `courses`.`user_id`
+ORDER BY `courses`.`title` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `courses`.*, `semesters`.`name` as `semester_name`, `terms`.`name` as `term_name`, `school_years`.`year` as `school_year`, `users`.`name` as `teacher_name`
+FROM `courses`
+LEFT JOIN `semesters` ON `semesters`.`id` = `courses`.`semester_id`
+LEFT JOIN `terms` ON `terms`.`id` = `courses`.`term_id`
+LEFT JOIN `school_years` ON `school_years`.`id` = `courses`.`school_year_id`
+LEFT JOIN `users` ON `users`.`id` = `courses`.`user_id`
+ORDER BY `courses`.`title` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `courses`.*, `semesters`.`name` as `semester_name`, `terms`.`name` as `term_name`, `school_years`.`year` as `school_year`, `users`.`name` as `teacher_name`
+FROM `courses`
+LEFT JOIN `semesters` ON `semesters`.`id` = `courses`.`semester_id`
+LEFT JOIN `terms` ON `terms`.`id` = `courses`.`term_id`
+LEFT JOIN `school_years` ON `school_years`.`id` = `courses`.`school_year_id`
+LEFT JOIN `users` ON `users`.`id` = `courses`.`user_id`
+ORDER BY `courses`.`title` ASC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\CourseModel.php(57): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin.php(264): App\Models\CourseModel->getCoursesWithRelations()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->courses()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 08:59:29 --> [Caused by] mysqli_sql_exception: Table 'lms_egaran.semesters' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `courses`.*, `semesters`.`name` as `semester_name`, `terms`.`name` as `term_name`, `school_years`.`year` as `school_year`, `users`.`name` as `teacher_name`
+FROM `courses`
+LEFT JOIN `semesters` ON `semesters`.`id` = `courses`.`semester_id`
+LEFT JOIN `terms` ON `terms`.`id` = `courses`.`term_id`
+LEFT JOIN `school_years` ON `school_years`.`id` = `courses`.`school_year_id`
+LEFT JOIN `users` ON `users`.`id` = `courses`.`user_id`
+ORDER BY `courses`.`title` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `courses`.*, `semesters`.`name` as `semester_name`, `terms`.`name` as `term_name`, `school_years`.`year` as `school_year`, `users`.`name` as `teacher_name`
+FROM `courses`
+LEFT JOIN `semesters` ON `semesters`.`id` = `courses`.`semester_id`
+LEFT JOIN `terms` ON `terms`.`id` = `courses`.`term_id`
+LEFT JOIN `school_years` ON `school_years`.`id` = `courses`.`school_year_id`
+LEFT JOIN `users` ON `users`.`id` = `courses`.`user_id`
+ORDER BY `courses`.`title` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `courses`.*, `semesters`.`name` as `semester_name`, `terms`.`name` as `term_name`, `school_years`.`year` as `school_year`, `users`.`name` as `teacher_name`
+FROM `courses`
+LEFT JOIN `semesters` ON `semesters`.`id` = `courses`.`semester_id`
+LEFT JOIN `terms` ON `terms`.`id` = `courses`.`term_id`
+LEFT JOIN `school_years` ON `school_years`.`id` = `courses`.`school_year_id`
+LEFT JOIN `users` ON `users`.`id` = `courses`.`user_id`
+ORDER BY `courses`.`title` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `courses`.*, `semesters`.`name` as `semester_name`, `terms`.`name` as `term_name`, `school_years`.`year` as `school_year`, `users`.`name` as `teacher_name`
+FROM `courses`
+LEFT JOIN `semesters` ON `semesters`.`id` = `courses`.`semester_id`
+LEFT JOIN `terms` ON `terms`.`id` = `courses`.`term_id`
+LEFT JOIN `school_years` ON `school_years`.`id` = `courses`.`school_year_id`
+LEFT JOIN `users` ON `users`.`id` = `courses`.`user_id`
+ORDER BY `courses`.`title` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\CourseModel.php(57): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin.php(264): App\Models\CourseModel->getCoursesWithRelations()
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->courses()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 08:59:34 --> mysqli_sql_exception: Table 'lms_egaran.semesters' doesn't exist in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `semeste...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `semeste...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `semeste...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `semeste...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\app\Models\SemesterModel.php(39): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Admin.php(429): App\Models\SemesterModel->getSemestersWithCourseCount()
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Admin->semesters()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 08:59:34 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.semesters' doesn't exist
+[Method: GET, Route: admin/semesters]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `semesters`.*, COUNT(courses.id) as course_count
+FROM `semesters`
+LEFT JOIN `courses` ON `courses`.`semester_id` = `semesters`.`id`
+GROUP BY `semesters`.`id`
+ORDER BY `semesters`.`name` ASC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\SemesterModel.php(39): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin.php(429): App\Models\SemesterModel->getSemestersWithCourseCount()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->semesters()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 08:59:34 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.semesters' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `semesters`.*, COUNT(courses.id) as course_count
+FROM `semesters`
+LEFT JOIN `courses` ON `courses`.`semester_id` = `semesters`.`id`
+GROUP BY `semesters`.`id`
+ORDER BY `semesters`.`name` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `semesters`.*, COUNT(courses.id) as course_count
+FROM `semesters`
+LEFT JOIN `courses` ON `courses`.`semester_id` = `semesters`.`id`
+GROUP BY `semesters`.`id`
+ORDER BY `semesters`.`name` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `semesters`.*, COUNT(courses.id) as course_count
+FROM `semesters`
+LEFT JOIN `courses` ON `courses`.`semester_id` = `semesters`.`id`
+GROUP BY `semesters`.`id`
+ORDER BY `semesters`.`name` ASC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\SemesterModel.php(39): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin.php(429): App\Models\SemesterModel->getSemestersWithCourseCount()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->semesters()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 08:59:34 --> [Caused by] mysqli_sql_exception: Table 'lms_egaran.semesters' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `semesters`.*, COUNT(courses.id) as course_count
+FROM `semesters`
+LEFT JOIN `courses` ON `courses`.`semester_id` = `semesters`.`id`
+GROUP BY `semesters`.`id`
+ORDER BY `semesters`.`name` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `semesters`.*, COUNT(courses.id) as course_count
+FROM `semesters`
+LEFT JOIN `courses` ON `courses`.`semester_id` = `semesters`.`id`
+GROUP BY `semesters`.`id`
+ORDER BY `semesters`.`name` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `semesters`.*, COUNT(courses.id) as course_count
+FROM `semesters`
+LEFT JOIN `courses` ON `courses`.`semester_id` = `semesters`.`id`
+GROUP BY `semesters`.`id`
+ORDER BY `semesters`.`name` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `semesters`.*, COUNT(courses.id) as course_count
+FROM `semesters`
+LEFT JOIN `courses` ON `courses`.`semester_id` = `semesters`.`id`
+GROUP BY `semesters`.`id`
+ORDER BY `semesters`.`name` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\SemesterModel.php(39): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin.php(429): App\Models\SemesterModel->getSemestersWithCourseCount()
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->semesters()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 08:59:58 --> mysqli_sql_exception: Table 'courses' already exists in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `c...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `c...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `c...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `c...')
+#4 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Migrations\2025-12-11-054408_CreateCourseTable.php(46): CodeIgniter\Database\Forge->createTable('courses')
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateCourseTable->up()
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-11 09:00:04 --> mysqli_sql_exception: Table 'lms_egaran.school_years' doesn't exist in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `school_...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\app\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 09:00:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.school_years' doesn't exist
+[Method: GET, Route: admin/school-years]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 09:00:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.school_years' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 09:00:04 --> [Caused by] mysqli_sql_exception: Table 'lms_egaran.school_years' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 09:01:12 --> mysqli_sql_exception: Table 'lms_egaran.school_years' doesn't exist in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `school_...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\app\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 09:01:12 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.school_years' doesn't exist
+[Method: GET, Route: admin/school-years]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 09:01:12 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.school_years' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 09:01:12 --> [Caused by] mysqli_sql_exception: Table 'lms_egaran.school_years' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 09:01:13 --> mysqli_sql_exception: Table 'lms_egaran.school_years' doesn't exist in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `school_...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\app\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 09:01:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.school_years' doesn't exist
+[Method: GET, Route: admin/school-years]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 09:01:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_egaran.school_years' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 09:01:13 --> [Caused by] mysqli_sql_exception: Table 'lms_egaran.school_years' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `school_years`.*, COUNT(courses.id) as course_count
+FROM `school_years`
+LEFT JOIN `courses` ON `courses`.`school_year_id` = `school_years`.`id`
+GROUP BY `school_years`.`id`
+ORDER BY `school_years`.`year` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\SchoolYearModel.php(40): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin.php(703): App\Models\SchoolYearModel->getSchoolYearsWithCourseCount()
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Admin->schoolYears()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 09:56:47 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin/enrollment_details.php"
+[Method: GET, Route: admin/enrollments/view/8]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/enrollment_details.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/enrollment_details', [], true)
+ 3 APPPATH\Controllers\Enrollment.php(227): view('admin/enrollment_details', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enrollment->view('8')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enrollment))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

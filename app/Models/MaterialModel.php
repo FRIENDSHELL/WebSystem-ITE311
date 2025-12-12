@@ -8,66 +8,102 @@ class MaterialModel extends Model
 {
     protected $table = 'materials';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['course_id', 'file_name', 'file_path', 'created_at'];
-    protected $useTimestamps = false;
-    protected $dateFormat = 'datetime';
+    protected $allowedFields = [
+        'course_id', 'user_id', 'title', 'description', 'file_name', 
+        'original_name', 'file_path', 'file_size', 'file_type', 
+        'upload_date', 'is_active', 'download_count'
+    ];
+    protected $useTimestamps = true;
     protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
 
     /**
-     * Insert a new material record
-     * @param array $data
-     * @return int|bool Insert ID or false on failure
+     * Get materials with course and user information
      */
-    public function insertMaterial($data)
+    public function getMaterialsWithDetails($userId = null, $role = null)
     {
-        $data['created_at'] = date('Y-m-d H:i:s');
-        return $this->insert($data);
+        $builder = $this->select('materials.*, courses.course_name, courses.course_id as course_code, users.name as uploaded_by')
+                        ->join('courses', 'courses.id = materials.course_id', 'left')
+                        ->join('users', 'users.id = materials.user_id', 'left')
+                        ->where('materials.is_active', 1);
+
+        // If teacher, only show their materials
+        if ($role === 'teacher' && $userId) {
+            $builder->where('materials.user_id', $userId);
+        }
+
+        return $builder->orderBy('materials.created_at', 'DESC')->findAll();
     }
 
     /**
-     * Get all materials for a specific course
-     * @param int $course_id
-     * @return array
+     * Search materials
      */
-    public function getMaterialsByCourse($course_id)
+    public function searchMaterials($searchTerm, $userId = null, $role = null)
     {
-        return $this->where('course_id', $course_id)
-                    ->orderBy('created_at', 'DESC')
-                    ->findAll();
+        $builder = $this->select('materials.*, courses.course_name, courses.course_id as course_code, users.name as uploaded_by')
+                        ->join('courses', 'courses.id = materials.course_id', 'left')
+                        ->join('users', 'users.id = materials.user_id', 'left')
+                        ->where('materials.is_active', 1);
+
+        // If teacher, only show their materials
+        if ($role === 'teacher' && $userId) {
+            $builder->where('materials.user_id', $userId);
+        }
+
+        // Search in multiple fields
+        $builder->groupStart()
+                ->like('materials.title', $searchTerm)
+                ->orLike('materials.description', $searchTerm)
+                ->orLike('materials.original_name', $searchTerm)
+                ->orLike('courses.course_name', $searchTerm)
+                ->orLike('courses.course_id', $searchTerm)
+                ->groupEnd();
+
+        return $builder->orderBy('materials.created_at', 'DESC')->findAll();
     }
 
     /**
-     * Get a single material by ID
-     * @param int $material_id
-     * @return array|null
+     * Get materials by course
      */
-    public function getMaterialById($material_id)
+    public function getMaterialsByCourse($courseId)
     {
-        return $this->find($material_id);
-    }
-
-    /**
-     * Delete a material record
-     * @param int $material_id
-     * @return bool
-     */
-    public function deleteMaterial($material_id)
-    {
-        return $this->delete($material_id);
-    }
-
-    /**
-     * Get materials for courses a student is enrolled in
-     * @param int $user_id
-     * @return array
-     */
-    public function getMaterialsForEnrolledCourses($user_id)
-    {
-        return $this->select('materials.*, courses.title as course_title')
-                    ->join('courses', 'courses.id = materials.course_id')
-                    ->join('enrollments', 'enrollments.course_id = courses.id')
-                    ->where('enrollments.user_id', $user_id)
+        return $this->select('materials.*, users.name as uploaded_by')
+                    ->join('users', 'users.id = materials.user_id', 'left')
+                    ->where('materials.course_id', $courseId)
+                    ->where('materials.is_active', 1)
                     ->orderBy('materials.created_at', 'DESC')
                     ->findAll();
+    }
+
+    /**
+     * Increment download count
+     */
+    public function incrementDownloadCount($materialId)
+    {
+        $material = $this->find($materialId);
+        if ($material) {
+            $newCount = ($material['download_count'] ?? 0) + 1;
+            $this->update($materialId, ['download_count' => $newCount]);
+        }
+    }
+
+    /**
+     * Get material statistics
+     */
+    public function getMaterialStats($userId = null, $role = null)
+    {
+        $builder = $this->where('is_active', 1);
+        
+        if ($role === 'teacher' && $userId) {
+            $builder->where('user_id', $userId);
+        }
+
+        $totalMaterials = $builder->countAllResults(false);
+        $totalDownloads = $builder->selectSum('download_count')->get()->getRow()->download_count ?? 0;
+
+        return [
+            'total_materials' => $totalMaterials,
+            'total_downloads' => $totalDownloads
+        ];
     }
 }

@@ -175,12 +175,16 @@
                         </div>
                     </li>
 
+                    <!-- Materials link for all logged-in users -->
+                    <li class="nav-item"><a class="nav-link" href="<?= site_url('materials') ?>">Materials</a></li>
+
                     <?php if (session()->get('role') === 'student'): ?>
+                        <li class="nav-item"><a class="nav-link" href="<?= site_url('student/dashboard') ?>">Student Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= site_url('student/courses') ?>">My Courses</a></li>
 
                     <?php elseif (session()->get('role') === 'teacher'): ?>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('teacher/courses') ?>">My Classes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('teacher/students') ?>">Students</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= site_url('teacher/dashboard') ?>">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= site_url('teacher/courses') ?>">My Courses</a></li>
 
                     <?php elseif (session()->get('role') === 'admin'): ?>
                         <li class="nav-item"><a class="nav-link" href="<?= site_url('admin/dashboard') ?>">Admin Dashboard</a></li>
@@ -194,6 +198,7 @@
                 <?php else: ?>
 
                     <!-- Not logged in -->
+                    <li class="nav-item"><a class="nav-link" href="<?= site_url('enrollment') ?>">Student Enrollment</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= site_url('login') ?>">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= site_url('register') ?>">Register</a></li>
 

@@ -186,18 +186,30 @@ class Auth extends BaseController
                 ->getResultArray();
         }
 
+        // ✅ Load student's enrollment applications (for students only)
+        $enrollmentApplications = [];
+        if ($user_role === 'student') {
+            $enrollmentModel = new \App\Models\EnrollmentModel();
+            $enrollmentApplications = $enrollmentModel->select('enrollments.*, courses.title as course_title, courses.course_code')
+                ->join('courses', 'courses.id = enrollments.course_id', 'left')
+                ->where('enrollments.user_id', $user_id)
+                ->orderBy('enrollments.enrollment_date', 'DESC')
+                ->findAll();
+        }
+
         // ✅ Fetch announcements for all users
         $announcementModel = new \App\Models\AnnouncementModel();
         $announcements = $announcementModel->orderBy('created_at', 'DESC')->findAll();
 
         // ✅ Send data to view
         $data = [
-            'user_name'       => $user_name,
-            'user_role'       => $user_role,
-            'courses'         => $courses,
-            'enrolledCourses' => $enrolledCourses,
-            'users'           => $users,
-            'announcements'   => $announcements,
+            'user_name'              => $user_name,
+            'user_role'              => $user_role,
+            'courses'                => $courses,
+            'enrolledCourses'        => $enrolledCourses,
+            'enrollmentApplications' => $enrollmentApplications,
+            'users'                  => $users,
+            'announcements'          => $announcements,
         ];
 
         return view('auth/dashboard', $data);

@@ -119,17 +119,57 @@
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('announcements') ?>" class="btn btn-outline-success w-100">
-                                <i class="bi bi-megaphone"></i> View Announcements
+                            <a href="<?= site_url('admin/courses') ?>" class="btn btn-outline-success w-100">
+                                <i class="bi bi-book"></i> Manage Courses
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('course/search') ?>" class="btn btn-outline-info w-100">
+                            <a href="<?= site_url('admin/semesters') ?>" class="btn btn-outline-info w-100">
+                                <i class="bi bi-calendar3"></i> Manage Semesters
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('admin/terms') ?>" class="btn btn-outline-warning w-100">
+                                <i class="bi bi-calendar-week"></i> Manage Terms
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('admin/school-years') ?>" class="btn btn-outline-danger w-100">
+                                <i class="bi bi-calendar-range"></i> School Years
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('admin/enrollments') ?>" class="btn btn-outline-success w-100">
+                                <i class="bi bi-person-check"></i> Manage Enrollments
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('announcements') ?>" class="btn btn-outline-secondary w-100">
+                                <i class="bi bi-megaphone"></i> Announcements
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('materials') ?>" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-folder"></i> Course Materials
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('materials/upload') ?>" class="btn btn-outline-success w-100">
+                                <i class="bi bi-cloud-upload"></i> Upload Material
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('course/search') ?>" class="btn btn-outline-dark w-100">
                                 <i class="bi bi-search"></i> Search Courses
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <a href="<?= site_url('dashboard') ?>" class="btn btn-outline-secondary w-100">
+                            <a href="<?= site_url('admin/enrollments') ?>" class="btn btn-outline-success w-100">
+                                <i class="bi bi-person-plus"></i> Manage Enrollments
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?= site_url('dashboard') ?>" class="btn btn-outline-primary w-100">
                                 <i class="bi bi-house"></i> Main Dashboard
                             </a>
                         </div>

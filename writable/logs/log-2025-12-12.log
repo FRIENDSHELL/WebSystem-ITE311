@@ -1,0 +1,482 @@
+ERROR - 2025-12-12 01:56:03 --> mysqli_sql_exception: Unknown column 'course_id' in 'field list' in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Teacher.php(193): CodeIgniter\Model->insert(Array)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Teacher->storeCourse()
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Teacher))
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-12 01:56:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'course_id' in 'field list'
+[Method: POST, Route: teacher/store-course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`course_id`, `course_name`, `school_year`, `semester`, `term`, `class_schedule`, `time_start`, `time_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES (:course_id:, :course_name:, :school_year:, :semester:, :term:, :class_schedule:, :time_start:, :time_end:, :description:, :user_id:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Teacher.php(193): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Teacher->storeCourse()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Teacher))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 01:56:03 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'course_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`course_id`, `course_name`, `school_year`, `semester`, `term`, `class_schedule`, `time_start`, `time_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES (\'ite-311\', \'websystem\', \'2025-2026\', \'First Semester\', \'1st Term\', \'Friday,Saturday\', \'10:00\', \'13:00\', \'major\', 2, \'2025-12-12 01:56:03\', \'2025-12-12 01:56:03\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`course_id`, `course_name`, `school_year`, `semester`, `term`, `class_schedule`, `time_start`, `time_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES (\'ite-311\', \'websystem\', \'2025-2026\', \'First Semester\', \'1st Term\', \'Friday,Saturday\', \'10:00\', \'13:00\', \'major\', 2, \'2025-12-12 01:56:03\', \'2025-12-12 01:56:03\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`course_id`, `course_name`, `school_year`, `semester`, `term`, `class_schedule`, `time_start`, `time_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES (:course_id:, :course_name:, :school_year:, :semester:, :term:, :class_schedule:, :time_start:, :time_end:, :description:, :user_id:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Teacher.php(193): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Teacher->storeCourse()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Teacher))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 01:56:03 --> [Caused by] mysqli_sql_exception: Unknown column 'course_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `courses` (`course_id`, `course_name`, `school_year`, `semester`, `term`, `class_schedule`, `time_start`, `time_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES (\'ite-311\', \'websystem\', \'2025-2026\', \'First Semester\', \'1st Term\', \'Friday,Saturday\', \'10:00\', \'13:00\', \'major\', 2, \'2025-12-12 01:56:03\', \'2025-12-12 01:56:03\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`course_id`, `course_name`, `school_year`, `semester`, `term`, `class_schedule`, `time_start`, `time_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES (\'ite-311\', \'websystem\', \'2025-2026\', \'First Semester\', \'1st Term\', \'Friday,Saturday\', \'10:00\', \'13:00\', \'major\', 2, \'2025-12-12 01:56:03\', \'2025-12-12 01:56:03\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`course_id`, `course_name`, `school_year`, `semester`, `term`, `class_schedule`, `time_start`, `time_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES (\'ite-311\', \'websystem\', \'2025-2026\', \'First Semester\', \'1st Term\', \'Friday,Saturday\', \'10:00\', \'13:00\', \'major\', 2, \'2025-12-12 01:56:03\', \'2025-12-12 01:56:03\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`course_id`, `course_name`, `school_year`, `semester`, `term`, `class_schedule`, `time_start`, `time_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES (:course_id:, :course_name:, :school_year:, :semester:, :term:, :class_schedule:, :time_start:, :time_end:, :description:, :user_id:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Teacher.php(193): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Teacher->storeCourse()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Teacher))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-12 02:00:50 --> mysqli_sql_exception: Duplicate entry '4' for key 'users.PRIMARY' in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `users` ...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `users` ...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `users` ...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `users` ...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Seeds\UserSeeder.php(48): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Seeder.php(149): App\Database\Seeds\UserSeeder->run()
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-12-12 03:07:00 --> mysqli_sql_exception: Cannot truncate a table referenced in a foreign key constraint (`lms_egaran`.`lessons`, CONSTRAINT `lessons_course_id_foreign`) in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('TRUNCATE `cours...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('TRUNCATE `cours...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('TRUNCATE `cours...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(2773): CodeIgniter\Database\BaseConnection->query('TRUNCATE `cours...', NULL, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Seeds\TeacherCourseSeeder.php(75): CodeIgniter\Database\BaseBuilder->truncate()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Seeder.php(149): App\Database\Seeds\TeacherCourseSeeder->run()
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-12-12 03:11:30 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin/enrollment_details.php"
+[Method: GET, Route: admin/enrollments/view/16]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/enrollment_details.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/enrollment_details', [], true)
+ 3 APPPATH\Controllers\Enrollment.php(199): view('admin/enrollment_details', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enrollment->view('16')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enrollment))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-12 03:29:45 --> mysqli_sql_exception: Unknown column 'created_at' in 'field list' in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `en...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `en...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `en...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `en...', NULL, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Seeds\TestEnrollmentSeeder.php(96): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Seeder.php(149): App\Database\Seeds\TestEnrollmentSeeder->run()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-12 03:30:55 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`lms_egaran`.`enrollments`, CONSTRAINT `enrollments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `en...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `en...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `en...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `en...', NULL, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Seeds\TestEnrollmentSeeder.php(90): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Seeder.php(149): App\Database\Seeds\TestEnrollmentSeeder->run()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-12 03:54:01 --> mysqli_sql_exception: Duplicate entry 'john.doe@student.edu' for key 'users.email' in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', NULL, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Seeds\TestEnrollmentSeeder.php(51): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Seeder.php(149): App\Database\Seeds\TestEnrollmentSeeder->run()
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-12-12 05:26:28 --> ParseError: syntax error, unexpected token "return", expecting "]"
+[Method: POST, Route: admin/course/1/upload]
+in APPPATH\Controllers\Materials.php on line 42.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Materials.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Materials')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Materials')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Materials', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 05:27:25 --> ErrorException: Undefined variable $course_title
+[Method: GET, Route: admin/course/1/upload]
+in APPPATH\Views\materials\upload.php on line 21.
+ 1 APPPATH\Views\materials\upload.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $course_title', 'C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Views\\materials\\upload.php', 21)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Views\\materials\\upload.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('materials/upload', [], true)
+ 5 APPPATH\Controllers\Materials.php(77): view('materials/upload', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Materials->upload('1')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materials))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-12 05:28:03 --> mysqli_sql_exception: Unknown column 'materials.user_id' in 'on clause' in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `materia...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `materia...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `materia...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `materia...', Array, false)
+#4 C:\xampp1\htdocs\ITE311-EGARAN\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\BaseModel.php(611): CodeIgniter\Model->doFind(true, '2')
+#6 C:\xampp1\htdocs\ITE311-EGARAN\app\Controllers\Materials.php(199): CodeIgniter\BaseModel->find('2')
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(933): App\Controllers\Materials->view('2')
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materials))
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp1\htdocs\ITE311-EGARAN\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-12-12 05:28:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'materials.user_id' in 'on clause'
+[Method: GET, Route: materials/view/2]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `materials`.*, `courses`.`course_name`, `courses`.`course_id` as `course_code`, `users`.`name` as `uploaded_by`
+FROM `materials`
+LEFT JOIN `courses` ON `courses`.`id` = `materials`.`course_id`
+LEFT JOIN `users` ON `users`.`id` = `materials`.`user_id`
+WHERE `materials`.`id` = :materials.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(611): CodeIgniter\Model->doFind(true, '2')
+ 4 APPPATH\Controllers\Materials.php(199): CodeIgniter\BaseModel->find('2')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Materials->view('2')
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materials))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 05:28:03 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'materials.user_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `materials`.*, `courses`.`course_name`, `courses`.`course_id` as `course_code`, `users`.`name` as `uploaded_by`
+FROM `materials`
+LEFT JOIN `courses` ON `courses`.`id` = `materials`.`course_id`
+LEFT JOIN `users` ON `users`.`id` = `materials`.`user_id`
+WHERE `materials`.`id` = \'2\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `materials`.*, `courses`.`course_name`, `courses`.`course_id` as `course_code`, `users`.`name` as `uploaded_by`
+FROM `materials`
+LEFT JOIN `courses` ON `courses`.`id` = `materials`.`course_id`
+LEFT JOIN `users` ON `users`.`id` = `materials`.`user_id`
+WHERE `materials`.`id` = \'2\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `materials`.*, `courses`.`course_name`, `courses`.`course_id` as `course_code`, `users`.`name` as `uploaded_by`
+FROM `materials`
+LEFT JOIN `courses` ON `courses`.`id` = `materials`.`course_id`
+LEFT JOIN `users` ON `users`.`id` = `materials`.`user_id`
+WHERE `materials`.`id` = :materials.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(611): CodeIgniter\Model->doFind(true, '2')
+ 6 APPPATH\Controllers\Materials.php(199): CodeIgniter\BaseModel->find('2')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Materials->view('2')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materials))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 05:28:03 --> [Caused by] mysqli_sql_exception: Unknown column 'materials.user_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `materials`.*, `courses`.`course_name`, `courses`.`course_id` as `course_code`, `users`.`name` as `uploaded_by`
+FROM `materials`
+LEFT JOIN `courses` ON `courses`.`id` = `materials`.`course_id`
+LEFT JOIN `users` ON `users`.`id` = `materials`.`user_id`
+WHERE `materials`.`id` = \'2\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `materials`.*, `courses`.`course_name`, `courses`.`course_id` as `course_code`, `users`.`name` as `uploaded_by`
+FROM `materials`
+LEFT JOIN `courses` ON `courses`.`id` = `materials`.`course_id`
+LEFT JOIN `users` ON `users`.`id` = `materials`.`user_id`
+WHERE `materials`.`id` = \'2\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `materials`.*, `courses`.`course_name`, `courses`.`course_id` as `course_code`, `users`.`name` as `uploaded_by`
+FROM `materials`
+LEFT JOIN `courses` ON `courses`.`id` = `materials`.`course_id`
+LEFT JOIN `users` ON `users`.`id` = `materials`.`user_id`
+WHERE `materials`.`id` = \'2\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `materials`.*, `courses`.`course_name`, `courses`.`course_id` as `course_code`, `users`.`name` as `uploaded_by`
+FROM `materials`
+LEFT JOIN `courses` ON `courses`.`id` = `materials`.`course_id`
+LEFT JOIN `users` ON `users`.`id` = `materials`.`user_id`
+WHERE `materials`.`id` = :materials.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(611): CodeIgniter\Model->doFind(true, '2')
+ 7 APPPATH\Controllers\Materials.php(199): CodeIgniter\BaseModel->find('2')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Materials->view('2')
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materials))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-12 05:31:43 --> mysqli_sql_exception: Table 'materials' already exists in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Migrations\2025-12-12-051500_CreateMaterialsTable.php(80): CodeIgniter\Database\Forge->createTable('materials')
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMaterialsTable->up()
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-12-12 05:38:16 --> mysqli_sql_exception: Table 'materials' already exists in C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp1\htdocs\ITE311-EGARAN\app\Database\Migrations\2025-12-12-051500_CreateMaterialsTable.php(80): CodeIgniter\Database\Forge->createTable('materials')
+#5 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMaterialsTable->up()
+#6 C:\xampp1\htdocs\ITE311-EGARAN\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp1\htdocs\ITE311-EGARAN\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp1\htdocs\ITE311-EGARAN\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp1\htdocs\ITE311-EGARAN\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp1\htdocs\ITE311-EGARAN\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-12-12 06:27:30 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:29:16 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:29:32 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:29:52 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:30:17 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:32:27 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:36:12 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:40:49 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:55:14 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:56:46 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 06:58:29 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 07:04:54 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 07:05:10 --> ParseError: syntax error, unexpected token "public", expecting "]"
+[Method: GET, Route: teacher/dashboard]
+in APPPATH\Controllers\Teacher.php on line 148.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp1\\htdocs\\ITE311-EGARAN\\app\\Controllers\\Teacher.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Teacher')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Teacher')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\Teacher', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 07:35:47 --> Error: Call to undefined function formatBytes()
+[Method: GET, Route: materials]
+in APPPATH\Views\materials\index.php on line 176.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('materials/index', [], true)
+ 4 APPPATH\Controllers\Materials.php(46): view('materials/index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Materials->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materials))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-12 07:37:46 --> Error: Call to undefined function formatBytes()
+[Method: GET, Route: materials]
+in APPPATH\Views\materials\index.php on line 176.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('materials/index', [], true)
+ 4 APPPATH\Controllers\Materials.php(46): view('materials/index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Materials->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materials))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

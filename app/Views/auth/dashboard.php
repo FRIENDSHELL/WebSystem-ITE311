@@ -185,27 +185,128 @@
     <!-- ================= STUDENT ================= -->
     <?php else: // student or other roles ?>
         <div class="row g-3">
+            <!-- Quick Actions for Students -->
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-lightning-charge"></i> Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <a href="<?= site_url('enrollment') ?>" class="btn btn-success w-100">
+                                    <i class="bi bi-person-plus"></i> Apply for Enrollment
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="<?= site_url('course/search') ?>" class="btn btn-info w-100">
+                                    <i class="bi bi-search"></i> Browse Courses
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="<?= site_url('announcements') ?>" class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-megaphone"></i> View Announcements
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enrollment Applications Status -->
+            <?php if (!empty($enrollmentApplications)): ?>
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-file-text"></i> My Enrollment Applications</span>
+                        <span class="badge bg-dark"><?= count($enrollmentApplications) ?> applications</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>Course</th>
+                                        <th>Program</th>
+                                        <th>Application Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($enrollmentApplications as $app): ?>
+                                        <tr>
+                                            <td><strong><?= esc($app['student_id']) ?></strong></td>
+                                            <td>
+                                                <?= esc($app['course_code'] ? $app['course_code'] . ' - ' : '') ?>
+                                                <?= esc($app['course_title']) ?>
+                                            </td>
+                                            <td><?= esc($app['program']) ?></td>
+                                            <td>
+                                                <small><?= date('M j, Y', strtotime($app['enrollment_date'])) ?></small>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $statusClass = [
+                                                    'Pending' => 'warning',
+                                                    'Approved' => 'success',
+                                                    'Rejected' => 'danger',
+                                                    'Enrolled' => 'primary'
+                                                ][$app['enrollment_status']] ?? 'secondary';
+                                                ?>
+                                                <span class="badge bg-<?= $statusClass ?>"><?= esc($app['enrollment_status']) ?></span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-outline-info" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#viewApplicationModal<?= $app['id'] ?>" 
+                                                        title="View Details">
+                                                    <i class="bi bi-eye"></i> View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <!-- My Enrolled Courses -->
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-                        <span>My Enrolled Courses</span>
-                        <div class="d-flex align-items-center gap-2">
-                        </div>
+                        <span><i class="bi bi-book"></i> My Enrolled Courses</span>
+                        <span class="badge bg-light text-dark"><?= count($enrolledCourses) ?> courses</span>
                     </div>
 
                     <ul class="list-group list-group-flush" id="enrolledCourses">
                         <?php if (!empty($enrolledCourses)): ?>
                             <?php foreach ($enrolledCourses as $course): ?>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span><?= esc($course['title']) ?></span>
-                                    <a href="<?= base_url('materials/view/' . $course['id']) ?>" class="btn btn-sm btn-info">
-                                        <i class="bi bi-folder2-open"></i> View Materials
-                                    </a>
+                                    <div>
+                                        <strong><?= esc($course['title']) ?></strong>
+                                        <br><small class="text-muted">Course ID: <?= esc($course['id']) ?></small>
+                                    </div>
+                                    <div>
+                                        <a href="<?= base_url('materials/view/' . $course['id']) ?>" class="btn btn-sm btn-info me-1">
+                                            <i class="bi bi-folder2-open"></i> Materials
+                                        </a>
+                                        <span class="badge bg-success">Enrolled</span>
+                                    </div>
                                 </li>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <li class="list-group-item text-muted no-enrollment-msg">
-                                You are not enrolled in any course yet.
+                            <li class="list-group-item text-center text-muted py-4">
+                                <i class="bi bi-book display-4 text-muted mb-3"></i>
+                                <h6>No Enrolled Courses</h6>
+                                <p class="mb-3">You are not enrolled in any course yet.</p>
+                                <a href="<?= site_url('enrollment') ?>" class="btn btn-primary">
+                                    <i class="bi bi-person-plus"></i> Apply for Enrollment
+                                </a>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -221,6 +322,77 @@
                 ]) ?>
             </div>
         </div>
+
+        <!-- Application Details Modals -->
+        <?php if (!empty($enrollmentApplications)): ?>
+            <?php foreach($enrollmentApplications as $app): ?>
+            <div class="modal fade" id="viewApplicationModal<?= $app['id'] ?>" tabindex="-1" aria-labelledby="viewApplicationModalLabel<?= $app['id'] ?>" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="viewApplicationModalLabel<?= $app['id'] ?>">
+                                Enrollment Application Details
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">Personal Information</h6>
+                                    <p><strong>Student ID:</strong> <?= esc($app['student_id']) ?></p>
+                                    <p><strong>Name:</strong> <?= esc($app['first_name'] . ' ' . ($app['middle_name'] ? $app['middle_name'] . ' ' : '') . $app['last_name']) ?></p>
+                                    <p><strong>Age:</strong> <?= esc($app['age']) ?> years old</p>
+                                    <p><strong>Gender:</strong> <?= esc($app['gender']) ?></p>
+                                    <p><strong>Contact:</strong> <?= esc($app['contact_number']) ?></p>
+                                    <p><strong>Email:</strong> <?= esc($app['email_address']) ?></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">Academic Information</h6>
+                                    <p><strong>Course:</strong> <?= esc($app['course_code'] ? $app['course_code'] . ' - ' : '') ?><?= esc($app['course_title']) ?></p>
+                                    <p><strong>Program:</strong> <?= esc($app['program']) ?></p>
+                                    <p><strong>Year Level:</strong> <?= esc($app['year_level']) ?></p>
+                                    <p><strong>Application Date:</strong> <?= date('F j, Y, g:i A', strtotime($app['enrollment_date'])) ?></p>
+                                    <p><strong>Status:</strong> 
+                                        <?php
+                                        $statusClass = [
+                                            'Pending' => 'warning',
+                                            'Approved' => 'success',
+                                            'Rejected' => 'danger',
+                                            'Enrolled' => 'primary'
+                                        ][$app['enrollment_status']] ?? 'secondary';
+                                        ?>
+                                        <span class="badge bg-<?= $statusClass ?>"><?= esc($app['enrollment_status']) ?></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <?php if ($app['notes']): ?>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h6 class="text-primary">Admin Notes</h6>
+                                    <div class="alert alert-info">
+                                        <?= esc($app['notes']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <?php if ($app['enrollment_status'] === 'Pending'): ?>
+                                <small class="text-muted">Your application is being reviewed</small>
+                            <?php elseif ($app['enrollment_status'] === 'Approved'): ?>
+                                <small class="text-success">Your application has been approved!</small>
+                            <?php elseif ($app['enrollment_status'] === 'Enrolled'): ?>
+                                <small class="text-primary">You are now enrolled in this course!</small>
+                            <?php elseif ($app['enrollment_status'] === 'Rejected'): ?>
+                                <small class="text-danger">Your application was not approved</small>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
     <?php endif; ?>
 
  

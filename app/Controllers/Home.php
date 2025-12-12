@@ -30,4 +30,13 @@ class Home extends BaseController
             'role'       => session()->get('role')
         ]);
     }
+
+    public function course()
+    {
+        return view('course/course_list', [
+            'isLoggedIn' => session()->get('isLoggedIn'),
+            'name'       => session()->get('name'),
+            'role'       => session()->get('role')
+        ]);
+    }
 }

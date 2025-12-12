@@ -22,19 +22,23 @@ class RoleAuth implements FilterInterface
         // Get the route segments to check
         $segments = $uri->getSegments();
         
-        // Admin can access any route starting with /admin
+        // Admin can access any route starting with /admin or /materials
         if ($userRole === 'admin') {
             // Check if path starts with /admin or first segment is 'admin'
             if (strpos($currentPath, '/admin') === 0 || 
-                (isset($segments[0]) && $segments[0] === 'admin')) {
+                (isset($segments[0]) && $segments[0] === 'admin') ||
+                strpos($currentPath, '/materials') === 0 ||
+                (isset($segments[0]) && $segments[0] === 'materials')) {
                 return; // Allow access
             }
         }
 
-        // Teacher can only access routes starting with /teacher
+        // Teacher can access routes starting with /teacher or /materials
         if ($userRole === 'teacher') {
             if (strpos($currentPath, '/teacher') === 0 || 
-                (isset($segments[0]) && $segments[0] === 'teacher')) {
+                (isset($segments[0]) && $segments[0] === 'teacher') ||
+                strpos($currentPath, '/materials') === 0 ||
+                (isset($segments[0]) && $segments[0] === 'materials')) {
                 return; // Allow access
             }
         }
